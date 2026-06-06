@@ -19,7 +19,7 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 	}
 	resp, err := h.provider.Generate(r.Context(), req)
 	if err != nil {
-		http.Error(w, "provide error", http.StatusBadGateway)
+		http.Error(w, "provider error", http.StatusBadGateway)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
