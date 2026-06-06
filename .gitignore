@@ -1,0 +1,41 @@
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Logs and runtime output
+logs/
+*.log
+*.pid
+*.sock
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Go
+bin/
+dist/
+coverage.out
+*.test
+
+# Project runtime directories
+llm-gateway/logs/
+llm-gateway/safety_sidecar/.venv/

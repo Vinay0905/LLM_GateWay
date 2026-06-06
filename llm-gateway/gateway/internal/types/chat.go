@@ -1,0 +1,21 @@
+package types
+
+// Defines a stable api contract for inbout and outbound payloads
+// kepp generation controls(MaxTokens,temperature) explicit.
+// add metadata for futre tracking and experiments without changing core schema
+
+// Request and Response contracts
+
+type ChatRequest struct {
+	Model       string            `json:"model"`
+	Prompt      string            `json:"prompt"`
+	MaxTokens   int               `json:"max_tokes"`
+	Temperature float64           `json:"temperature"`
+	Metadata    map[string]string `json:"metadata"`
+}
+
+type ChatResponse struct {
+	Output   string `json:"output"`
+	Provider string `json:"provider"`
+	Model    string `json:"model"`
+}
