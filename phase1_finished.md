@@ -1,4 +1,5 @@
 in one terminal : 
+    - cd llm-gateway/gateway
     - go run ./cmd
 
 You should see:

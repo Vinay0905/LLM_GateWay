@@ -39,3 +39,6 @@ coverage.out
 # Project runtime directories
 llm-gateway/logs/
 llm-gateway/safety_sidecar/.venv/
+# Go build cache
+.gocache/
+**/.gocache/
