@@ -21,6 +21,8 @@ Introduce provider abstraction and routing strategy:
 
 ## Snippet 1: Router policy model
 
+Put in file: `gateway/internal/router/model_router.go`
+
 ```go
 type WeightedProvider struct {
     Name    string
@@ -41,6 +43,8 @@ What this snippet does:
 - Enables A/B strategy through weighted distribution.
 
 ## Snippet 2: Weighted provider selection
+
+Put in file: `gateway/internal/router/model_router.go`
 
 ```go
 func ChooseByWeight(weights []WeightedProvider, r *rand.Rand) string {
@@ -63,6 +67,8 @@ What this snippet does:
 - Falls back to a default if config is imperfect.
 
 ## Snippet 3: Router service
+
+Put in file: `gateway/internal/router/model_router.go`
 
 ```go
 type Router struct {
@@ -88,6 +94,8 @@ What this snippet does:
 - Keeps handlers thin and provider-agnostic.
 
 ## Snippet 4: Provider registry usage
+
+Put in file: `gateway/internal/handlers/chat.go`
 
 ```go
 providerName := router.ResolveProvider(req.Model)

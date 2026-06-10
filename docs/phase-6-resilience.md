@@ -16,6 +16,8 @@ Handle upstream failures without collapsing gateway reliability.
 
 ## Snippet 1: Timeout wrapping
 
+Put in file: `gateway/internal/handlers/chat.go`
+
 ```go
 ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
 defer cancel()
@@ -30,6 +32,8 @@ What this snippet does:
 - Applies per-request latency budget.
 
 ## Snippet 2: Retry helper (simplified)
+
+Put in file: `gateway/internal/providers/gemini.go` (and similarly in `gateway/internal/providers/groq.go`)
 
 ```go
 func Retry(attempts int, fn func() error) error {
@@ -52,6 +56,8 @@ What this snippet does:
 - Returns final error cleanly to caller.
 
 ## Snippet 3: Circuit breaker core
+
+Put in file: `gateway/internal/circuit/breaker.go`
 
 ```go
 type Breaker struct {
@@ -94,6 +100,8 @@ What this snippet does:
 - Encodes breaker state transitions in one object.
 
 ## Snippet 4: Fallback flow
+
+Put in file: `gateway/internal/handlers/chat.go`
 
 ```go
 primary := router.ResolveProvider(req.Model)

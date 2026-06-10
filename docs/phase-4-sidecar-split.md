@@ -25,6 +25,8 @@ Move safety logic out of gateway into a dedicated FastAPI service.
 
 ## Snippet 1: FastAPI sidecar endpoint
 
+Put in file: `safety_sidecar/main.py`
+
 ```python
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -66,6 +68,8 @@ What this snippet does:
 - Establishes migration path to richer detectors.
 
 ## Snippet 2: Go safety client
+
+Put in file: `gateway/internal/safety/client.go`
 
 ```go
 type SidecarVerdict struct {
@@ -112,6 +116,8 @@ What this snippet does:
 - Reuses context for cancellations/timeouts.
 
 ## Snippet 3: Gateway integration point
+
+Put in file: `gateway/internal/handlers/chat.go`
 
 ```go
 verdict, err := h.safetyClient.Analyze(r.Context(), req.Prompt)
