@@ -49,7 +49,11 @@ func loadDotEnv(path string) {
 }
 
 func main() {
-	loadDotEnv(".env")
+	envPath := os.Getenv("ENV_FILE")
+	if envPath == "" {
+		envPath = ".env"
+	}
+	loadDotEnv(envPath)
 
 	mux := http.NewServeMux()
 	provider := providers.NewGeminiProvider(os.Getenv("GEMINI_API_KEY"))
@@ -72,6 +76,6 @@ func main() {
 		_, _ = w.Write([]byte(`{"status":"ok"}`))
 	})
 
-	log.Println("Server listinering on :8080")
+	log.Println("Server listening	 on :8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }

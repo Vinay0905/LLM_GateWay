@@ -8,6 +8,11 @@ import (
 )
 
 func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
+	// 405 Method Not Allowed
+	if r.Method != http.MethodPost {
+		http.Error(w, "method no allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	// #decode chat request ---------------------------------------------------
 	var req types.ChatRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
