@@ -65,10 +65,11 @@ func main() {
 
 	limiterStore := middleware.NewLimiterStore(rate.Limit(5), 10)
 
-	// Auth runs first, then rate limiting, then the chat handler.
+	// Method guard runs first, then auth, then rate limiting, then the chat handler.
 	var chat http.Handler = http.HandlerFunc(chatHandler.HandleChat)
 	chat = middleware.RateLimitMiddleware(limiterStore, chat)
 	chat = middleware.AuthMiddleware(validKeys, chat)
+	chat = middleware.MethodMiddleware(http.MethodPost, chat)
 
 	mux.Handle("/v1/chat", chat)
 	mux.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
@@ -76,6 +77,6 @@ func main() {
 		_, _ = w.Write([]byte(`{"status":"ok"}`))
 	})
 
-	log.Println("Server listening	 on :8080")
+	log.Println("Server listening on :8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
