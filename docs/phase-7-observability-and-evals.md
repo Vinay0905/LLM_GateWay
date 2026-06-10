@@ -22,6 +22,8 @@ Make the system measurable and improvable:
 
 ## Snippet 1: Experiment log record
 
+Put in file: `gateway/internal/logger/experiment_log.go`
+
 ```go
 type ExperimentLog struct {
     Timestamp     time.Time `json:"timestamp"`
@@ -45,6 +47,8 @@ What this snippet does:
 
 ## Snippet 2: Prompt hashing utility
 
+Put in file: `gateway/internal/logger/experiment_log.go`
+
 ```go
 func SHA256Hex(input string) string {
     sum := sha256.Sum256([]byte(input))
@@ -59,6 +63,8 @@ What this snippet does:
 - Keeps raw user content out of logs by default.
 
 ## Snippet 3: JSONL append logger
+
+Put in file: `gateway/internal/logger/experiment_log.go`
 
 ```go
 func AppendJSONL(path string, v any) error {
@@ -84,6 +90,8 @@ What this snippet does:
 
 ## Snippet 4: Basic in-memory metrics endpoint
 
+Put in file: `gateway/internal/handlers/metrics.go`
+
 ```go
 type Metrics struct {
     RequestsTotal  atomic.Int64
@@ -107,6 +115,8 @@ What this snippet does:
 - Creates basis for later Prometheus integration.
 
 ## Snippet 5: Replay evaluation pseudocode
+
+Put in file: `docs/replay-eval-notes.md` (design notes) or a script on your implementation laptop.
 
 ```text
 for each sample in eval_dataset:

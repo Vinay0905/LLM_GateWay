@@ -36,6 +36,8 @@ No auth, no rate limiting, no sidecar yet.
 
 ## Snippet 1: Request and response contract
 
+Put in file: `gateway/internal/types/chat.go`
+
 ```go
 type ChatRequest struct {
     Model       string            `json:"model"`
@@ -60,6 +62,8 @@ What this snippet does:
 
 ## Snippet 2: Provider interface (adapter boundary)
 
+Put in file: `gateway/internal/providers/provider.go`
+
 ```go
 type Provider interface {
     Generate(ctx context.Context, req ChatRequest) (ChatResponse, error)
@@ -73,6 +77,8 @@ What this snippet does:
 - Creates a test seam: mock `Provider` in unit tests.
 
 ## Snippet 3: Chat handler skeleton
+
+Put in file: `gateway/internal/handlers/chat.go`
 
 ```go
 func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
@@ -104,6 +110,8 @@ What this snippet does:
 - Normalizes provider failures to HTTP `502`.
 
 ## Snippet 4: Main wiring
+
+Put in file: `gateway/cmd/main.go`
 
 ```go
 func main() {

@@ -26,6 +26,8 @@ Add tenant controls before expensive model calls:
 
 ## Snippet 1: Auth middleware
 
+Put in file: `gateway/internal/middleware/auth.go`
+
 ```go
 func AuthMiddleware(validKeys map[string]struct{}, next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -46,6 +48,8 @@ What this snippet does:
 - Allows only trusted tenants to reach business logic.
 
 ## Snippet 2: Per-key token bucket map
+
+Put in file: `gateway/internal/middleware/ratelimit.go`
 
 ```go
 type LimiterStore struct {
@@ -75,6 +79,8 @@ What this snippet does:
 
 ## Snippet 3: Rate limit middleware
 
+Put in file: `gateway/internal/middleware/ratelimit.go`
+
 ```go
 func RateLimitMiddleware(store *LimiterStore, next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -95,6 +101,8 @@ What this snippet does:
 - Keeps behavior deterministic and easy to monitor.
 
 ## Snippet 4: Middleware composition
+
+Put in file: `gateway/cmd/main.go`
 
 ```go
 var chat http.Handler = http.HandlerFunc(chatHandler.HandleChat)

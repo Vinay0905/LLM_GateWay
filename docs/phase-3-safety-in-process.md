@@ -20,6 +20,8 @@ Before splitting into sidecar, implement safety logic directly inside gateway:
 
 ## Snippet 1: Safety verdict model
 
+Put in file: `gateway/internal/safety/analyzer.go`
+
 ```go
 type SafetyVerdict struct {
     Verdict    string   `json:"verdict"`     // PASS or BLOCK
@@ -36,6 +38,8 @@ What this snippet does:
 - Supports user-facing and logging use cases.
 
 ## Snippet 2: Injection heuristic
+
+Put in file: `gateway/internal/safety/analyzer.go`
 
 ```go
 func DetectInjection(prompt string) (bool, float64, []string) {
@@ -69,6 +73,8 @@ What this snippet does:
 
 ## Snippet 3: Policy gate in handler flow
 
+Put in file: `gateway/internal/handlers/chat.go`
+
 ```go
 verdict := safety.Analyze(req.Prompt)
 if verdict.Verdict == "BLOCK" {
@@ -90,6 +96,8 @@ What this snippet does:
 - Prevents unsafe prompt leakage upstream.
 
 ## Snippet 4: PII redaction helper (optional mode)
+
+Put in file: `gateway/internal/safety/analyzer.go`
 
 ```go
 var emailRe = regexp.MustCompile(`[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}`)
