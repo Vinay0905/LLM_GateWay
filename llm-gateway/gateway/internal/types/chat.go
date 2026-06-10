@@ -6,6 +6,7 @@ package types
 
 // Request and Response contracts
 
+// #chat request payload ---------------------------------------------------
 type ChatRequest struct {
 	Model       string            `json:"model"`
 	Prompt      string            `json:"prompt"`
@@ -14,6 +15,7 @@ type ChatRequest struct {
 	Metadata    map[string]string `json:"metadata"`
 }
 
+// #chat response payload ---------------------------------------------------
 type ChatResponse struct {
 	Output   string `json:"output"`
 	Provider string `json:"provider"`
