@@ -24,6 +24,7 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 
 	verdict := safety.Analyze(req.Prompt)
 	if verdict.Verdict == "BLOCK" {
+		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
 		_ = json.NewEncoder(w).Encode(map[string]any{
 			"error":       "blocked_by_safety",

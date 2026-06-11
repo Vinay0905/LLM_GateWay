@@ -71,7 +71,38 @@ What this snippet does:
 - Produces score tied to number of suspicious matches.
 - Returns exact triggers for explainability.
 
-## Snippet 3: Policy gate in handler flow
+## Snippet 3: Analyze orchestrator
+
+Put in file: `gateway/internal/safety/analyzer.go`
+
+```go
+func Analyze(prompt string) SafetyVerdict {
+    blocked, score, reasons := DetectInjection(prompt)
+    if blocked {
+        return SafetyVerdict{
+            Verdict:    "BLOCK",
+            ThreatType: "injection",
+            Score:      score,
+            Reasons:    reasons,
+        }
+    }
+
+    return SafetyVerdict{
+        Verdict:    "PASS",
+        ThreatType: "none",
+        Score:      0.0,
+        Reasons:    nil,
+    }
+}
+```
+
+What this snippet does:
+
+- Centralizes safety decision flow into one function the handler can call.
+- Converts detector output into a stable verdict contract.
+- Makes it easy to add jailbreak/PII checks later without changing handler shape.
+
+## Snippet 4: Policy gate in handler flow
 
 Put in file: `gateway/internal/handlers/chat.go`
 
@@ -95,7 +126,7 @@ What this snippet does:
 - Returns structured block reason to client.
 - Prevents unsafe prompt leakage upstream.
 
-## Snippet 4: PII redaction helper (optional mode)
+## Snippet 5: PII redaction helper (optional mode)
 
 Put in file: `gateway/internal/safety/analyzer.go`
 
