@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"llm-gateway/gateway/internal/safety"
 	"llm-gateway/gateway/internal/types"
 	"net/http"
 	"strings"
@@ -16,6 +17,20 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 
 	if strings.TrimSpace(req.Prompt) == "" {
 		http.Error(w, "prompt required", http.StatusBadRequest)
+		return
+	}
+
+	//policy gate in handler flow
+
+	verdict := safety.Analyze(req.Prompt)
+	if verdict.Verdict == "BLOCK" {
+		w.WriteHeader(http.StatusBadRequest)
+		_ = json.NewEncoder(w).Encode(map[string]any{
+			"error":       "blocked_by_safety",
+			"threat_type": verdict.ThreatType,
+			"score":       verdict.Score,
+			"reasons":     verdict.Reasons,
+		})
 		return
 	}
 
