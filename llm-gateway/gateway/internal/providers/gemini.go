@@ -2,6 +2,7 @@ package providers
 
 import (
 	"context"
+	"time"
 
 	"llm-gateway/gateway/internal/types"
 )
@@ -24,4 +25,16 @@ func (p *GeminiProvider) Generate(ctx context.Context, req types.ChatRequest) (t
 		Provider: "gemini",
 		Model:    req.Model,
 	}, nil
+}
+
+func Retry(attempts int, fn func() error) error {
+	var err error
+	for i := 0; i < attempts; i++ {
+		err = fn()
+		if err == nil {
+			return nil
+		}
+		time.Sleep(time.Duration(i+1) * 150 * time.Millisecond)
+	}
+	return err
 }

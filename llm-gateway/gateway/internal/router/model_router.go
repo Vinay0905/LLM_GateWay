@@ -72,7 +72,7 @@ func NewRouter(policy RoutePolicy, rnd *rand.Rand) *Router {
 			Weights:         policy.Weights,
 			ModelMap:        normalizedMap,
 		},
-		rnd:    rnd,
+		rnd: rnd,
 	}
 }
 
@@ -87,6 +87,14 @@ func (rt *Router) ResolveProvider(model string) string {
 		return ChooseByWeight(rt.policy.Weights, rt.rnd, rt.policy.DefaultProvider)
 	}
 	return rt.policy.DefaultProvider
+}
+
+func (rt *Router) Secondary(primary string) string {
+	primary = strings.TrimSpace(primary)
+	if primary != "groq" {
+		return "groq"
+	}
+	return "gemini"
 }
 
 func hasValidWeights(weights []WeightedProvider) bool {

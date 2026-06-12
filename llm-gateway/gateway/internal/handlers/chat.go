@@ -1,8 +1,10 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
 	"llm-gateway/gateway/internal/types"
+	"time"
 
 	"net/http"
 	"strings"
@@ -43,18 +45,37 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	providerName := h.router.ResolveProvider(req.Model)
-	provider, ok := h.providers[providerName]
+	primary := h.router.ResolveProvider(req.Model)
+	breaker, ok := h.breakers[primary]
+	if !ok {
+		http.Error(w, "unknown provider", http.StatusBadRequest)
+		return
+	}
+	if !breaker.Allow() {
+		primary = h.router.Secondary(primary)
+		breaker, ok = h.breakers[primary]
+		if !ok {
+			http.Error(w, "unknown provider", http.StatusBadRequest)
+			return
+		}
+	}
+
+	provider, ok := h.providers[primary]
 	if !ok {
 		http.Error(w, "unknown provider", http.StatusBadRequest)
 		return
 	}
 
-	resp, err := provider.Generate(r.Context(), req)
+	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
+	defer cancel()
+
+	resp, err := provider.Generate(ctx, req)
 	if err != nil {
-		http.Error(w, "provider error", http.StatusBadGateway)
+		breaker.RecordFailure()
+		http.Error(w, "upstream unavailable", http.StatusServiceUnavailable)
 		return
 	}
+	breaker.RecordSuccess()
 
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(resp)

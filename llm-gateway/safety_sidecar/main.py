@@ -15,6 +15,11 @@ class AnalyzeResponse(BaseModel):
     score: float
     masked_prompt: str
 
+@app.get("/health")
+async def health():
+    return {"status":"ok"}
+
+
 @app.post("/analyze",response_model=AnalyzeResponse)
 async def analyze(req: AnalyzerRequest)->AnalyzeResponse:
     blocked= "ignore previous instructions"in req.prompt.lower()
