@@ -130,14 +130,16 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Debug headers to validate routing and breaker behavior during Phase 6 tests.
-	w.Header().Set("X-Debug-Primary-Provider", requestedPrimary)
-	w.Header().Set("X-Debug-Selected-Provider", selectedProvider)
-	w.Header().Set("X-Debug-Fallback", strconv.FormatBool(fallbackFrom != ""))
-	if fallbackFrom != "" {
-		w.Header().Set("X-Debug-Fallback-From", fallbackFrom)
+	if h.debugHeaders {
+		// Optional debug headers for local resilience testing.
+		w.Header().Set("X-Debug-Primary-Provider", requestedPrimary)
+		w.Header().Set("X-Debug-Selected-Provider", selectedProvider)
+		w.Header().Set("X-Debug-Fallback", strconv.FormatBool(fallbackFrom != ""))
+		if fallbackFrom != "" {
+			w.Header().Set("X-Debug-Fallback-From", fallbackFrom)
+		}
+		w.Header().Set("X-Debug-Breaker-State-Before", breaker.State())
 	}
-	w.Header().Set("X-Debug-Breaker-State-Before", breaker.State())
 
 	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
 	defer cancel()
@@ -145,7 +147,9 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 	resp, err := provider.Generate(ctx, req)
 	if err != nil {
 		breaker.RecordFailure()
-		w.Header().Set("X-Debug-Breaker-State-After", breaker.State())
+		if h.debugHeaders {
+			w.Header().Set("X-Debug-Breaker-State-After", breaker.State())
+		}
 		statusCode = http.StatusServiceUnavailable
 		if h.metrics != nil {
 			h.metrics.UpstreamErrors.Add(1)
@@ -154,7 +158,9 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	breaker.RecordSuccess()
-	w.Header().Set("X-Debug-Breaker-State-After", breaker.State())
+	if h.debugHeaders {
+		w.Header().Set("X-Debug-Breaker-State-After", breaker.State())
+	}
 
 	statusCode = http.StatusOK
 	w.Header().Set("Content-Type", "application/json")
