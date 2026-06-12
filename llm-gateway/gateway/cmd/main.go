@@ -93,7 +93,8 @@ func main() {
 	}
 
 	metrics := &handlers.Metrics{}
-	chatHandler := handlers.NewChatHandler(providerRegistry, modelRouter, safetyClient, metrics, "../logs/experiment_log.jsonl")
+	debugHeaders := strings.EqualFold(strings.TrimSpace(os.Getenv("DEBUG_HEADERS")), "true")
+	chatHandler := handlers.NewChatHandler(providerRegistry, modelRouter, safetyClient, metrics, "../logs/experiment_log.jsonl", debugHeaders)
 
 	// ----------------
 	validKeys := map[string]struct{}{

@@ -24,6 +24,7 @@ From `llm-gateway/gateway`:
 ```bash
 export SAFETY_BASE_URL="http://127.0.0.1:8000"
 export ENV_FILE=../../../.env
+export DEBUG_HEADERS=true
 go run ./cmd
 ```
 
@@ -31,6 +32,7 @@ Expected:
 
 - Gateway starts without panic.
 - Startup log shows `Server listening on :8080`.
+- `DEBUG_HEADERS=true` enables `X-Debug-*` headers used in this checklist.
 
 ---
 
