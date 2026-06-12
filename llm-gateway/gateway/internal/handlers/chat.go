@@ -38,7 +38,19 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 		req.Prompt = verdict.MaskedPrompt
 	}
 
-	resp, err := h.provider.Generate(r.Context(), req)
+	if h.router == nil {
+		http.Error(w, "router unavailable", http.StatusBadGateway)
+		return
+	}
+
+	providerName := h.router.ResolveProvider(req.Model)
+	provider, ok := h.providers[providerName]
+	if !ok {
+		http.Error(w, "unknown provider", http.StatusBadRequest)
+		return
+	}
+
+	resp, err := provider.Generate(r.Context(), req)
 	if err != nil {
 		http.Error(w, "provider error", http.StatusBadGateway)
 		return

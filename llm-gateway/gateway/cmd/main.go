@@ -6,8 +6,10 @@ import (
 	"llm-gateway/gateway/internal/handlers"
 	"llm-gateway/gateway/internal/middleware"
 	"llm-gateway/gateway/internal/providers"
+	"llm-gateway/gateway/internal/router"
 	"llm-gateway/gateway/internal/safety"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"strings"
@@ -59,7 +61,20 @@ func main() {
 	mux := http.NewServeMux()
 
 	// -------------------
-	provider := providers.NewGeminiProvider(os.Getenv("GEMINI_API_KEY"))
+	providerRegistry := map[string]providers.Provider{
+		"gemini": providers.NewGeminiProvider(os.Getenv("GEMINI_API_KEY")),
+		"groq":   providers.NewGroqProvider(os.Getenv("GROQ_API_KEY")),
+	}
+
+	routePolicy := router.RoutePolicy{
+		DefaultProvider: "gemini",
+		ModelMap: map[string]string{
+			"gemini": "gemini",
+			"groq":   "groq",
+		},
+	}
+
+	modelRouter := router.NewRouter(routePolicy, rand.New(rand.NewSource(time.Now().UnixNano())))
 
 	safetyBaseURL := os.Getenv("SAFETY_BASE_URL")
 	if safetyBaseURL == "" {
@@ -73,7 +88,7 @@ func main() {
 		},
 	}
 
-	chatHandler := handlers.NewChatHandler(provider, safetyClient)
+	chatHandler := handlers.NewChatHandler(providerRegistry, modelRouter, safetyClient)
 
 	// ----------------
 	validKeys := map[string]struct{}{
