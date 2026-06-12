@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"llm-gateway/gateway/internal/types"
+	"strconv"
 	"time"
 
 	"net/http"
@@ -45,26 +46,39 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	primary := h.router.ResolveProvider(req.Model)
-	breaker, ok := h.breakers[primary]
+	requestedPrimary := h.router.ResolveProvider(req.Model)
+	selectedProvider := requestedPrimary
+	fallbackFrom := ""
+
+	breaker, ok := h.breakers[selectedProvider]
 	if !ok {
 		http.Error(w, "unknown provider", http.StatusBadRequest)
 		return
 	}
 	if !breaker.Allow() {
-		primary = h.router.Secondary(primary)
-		breaker, ok = h.breakers[primary]
+		fallbackFrom = selectedProvider
+		selectedProvider = h.router.Secondary(selectedProvider)
+		breaker, ok = h.breakers[selectedProvider]
 		if !ok {
 			http.Error(w, "unknown provider", http.StatusBadRequest)
 			return
 		}
 	}
 
-	provider, ok := h.providers[primary]
+	provider, ok := h.providers[selectedProvider]
 	if !ok {
 		http.Error(w, "unknown provider", http.StatusBadRequest)
 		return
 	}
+
+	// Debug headers to validate routing and breaker behavior during Phase 6 tests.
+	w.Header().Set("X-Debug-Primary-Provider", requestedPrimary)
+	w.Header().Set("X-Debug-Selected-Provider", selectedProvider)
+	w.Header().Set("X-Debug-Fallback", strconv.FormatBool(fallbackFrom != ""))
+	if fallbackFrom != "" {
+		w.Header().Set("X-Debug-Fallback-From", fallbackFrom)
+	}
+	w.Header().Set("X-Debug-Breaker-State-Before", breaker.State())
 
 	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
 	defer cancel()
@@ -72,10 +86,12 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 	resp, err := provider.Generate(ctx, req)
 	if err != nil {
 		breaker.RecordFailure()
+		w.Header().Set("X-Debug-Breaker-State-After", breaker.State())
 		http.Error(w, "upstream unavailable", http.StatusServiceUnavailable)
 		return
 	}
 	breaker.RecordSuccess()
+	w.Header().Set("X-Debug-Breaker-State-After", breaker.State())
 
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(resp)
