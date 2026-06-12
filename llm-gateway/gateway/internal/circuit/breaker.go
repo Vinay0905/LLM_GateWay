@@ -60,3 +60,9 @@ func (b *Breaker) RecordSuccess() {
 	b.failCount = 0
 	b.state = "closed"
 }
+
+func (b *Breaker) State() string {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	return b.state
+}
