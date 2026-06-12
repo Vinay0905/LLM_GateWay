@@ -92,7 +92,8 @@ func main() {
 		},
 	}
 
-	chatHandler := handlers.NewChatHandler(providerRegistry, modelRouter, safetyClient)
+	metrics := &handlers.Metrics{}
+	chatHandler := handlers.NewChatHandler(providerRegistry, modelRouter, safetyClient, metrics, "../logs/experiment_log.jsonl")
 
 	// ----------------
 	validKeys := map[string]struct{}{
@@ -108,6 +109,7 @@ func main() {
 	chat = middleware.MethodMiddleware(http.MethodPost, chat)
 
 	mux.Handle("/v1/chat", chat)
+	mux.HandleFunc("/metrics", metrics.HandleMetrics)
 	mux.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte(`{"status":"ok"}`))

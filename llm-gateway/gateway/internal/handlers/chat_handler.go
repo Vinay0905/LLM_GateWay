@@ -14,10 +14,12 @@ type ChatHandler struct {
 	router       *router.Router
 	safetyClient *safety.SafetyClient
 	breakers     map[string]*circuit.Breaker
+	metrics      *Metrics
+	logPath      string
 }
 
 // #create chat handler ---------------------------------------------------
-func NewChatHandler(providers map[string]providers.Provider, router *router.Router, safetyClient *safety.SafetyClient) *ChatHandler {
+func NewChatHandler(providers map[string]providers.Provider, router *router.Router, safetyClient *safety.SafetyClient, metrics *Metrics, logPath string) *ChatHandler {
 	breakers := make(map[string]*circuit.Breaker, len(providers))
 	for name := range providers {
 		breakers[name] = circuit.NewBreaker(3, 30*time.Second)
@@ -28,5 +30,7 @@ func NewChatHandler(providers map[string]providers.Provider, router *router.Rout
 		router:       router,
 		safetyClient: safetyClient,
 		breakers:     breakers,
+		metrics:      metrics,
+		logPath:      logPath,
 	}
 }

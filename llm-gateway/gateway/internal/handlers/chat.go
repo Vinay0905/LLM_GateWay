@@ -3,7 +3,10 @@ package handlers
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"llm-gateway/gateway/internal/logger"
 	"llm-gateway/gateway/internal/types"
+	"log"
 	"strconv"
 	"time"
 
@@ -12,27 +15,79 @@ import (
 )
 
 func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+	requestID := fmt.Sprintf("%d", start.UnixNano())
+	statusCode := http.StatusInternalServerError
+	selectedProvider := ""
+	requestModel := ""
+	safetyVerdict := ""
+	threatType := ""
+	promptHash := ""
+
+	if h.metrics != nil {
+		h.metrics.RequestsTotal.Add(1)
+	}
+	defer func() {
+		if h.logPath == "" {
+			return
+		}
+
+		entry := logger.ExperimentLog{
+			Timestamp:     start.UTC(),
+			RequestID:     requestID,
+			ApiKeyHash:    logger.SHA256Hex(r.Header.Get("X-API-Key")),
+			PromptHash:    promptHash,
+			Provider:      selectedProvider,
+			Model:         requestModel,
+			SafetyVerdict: safetyVerdict,
+			ThreatType:    threatType,
+			LatencyMs:     time.Since(start).Milliseconds(),
+			StatusCode:    statusCode,
+		}
+		if err := logger.AppendJSONL(h.logPath, entry); err != nil {
+			log.Printf("failed to append experiment log: %v", err)
+		}
+	}()
+
 	var req types.ChatRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		statusCode = http.StatusBadRequest
 		http.Error(w, "invalid JSON", http.StatusBadRequest)
 		return
 	}
+	promptHash = logger.SHA256Hex(req.Prompt)
+	requestModel = req.Model
 
 	if strings.TrimSpace(req.Prompt) == "" {
+		statusCode = http.StatusBadRequest
 		http.Error(w, "prompt required", http.StatusBadRequest)
 		return
 	}
 	if h.safetyClient == nil {
+		statusCode = http.StatusBadGateway
+		if h.metrics != nil {
+			h.metrics.UpstreamErrors.Add(1)
+		}
 		http.Error(w, "safety service unavailable", http.StatusBadGateway)
 		return
 	}
 
 	verdict, err := h.safetyClient.Analyze(r.Context(), req.Prompt)
 	if err != nil {
+		statusCode = http.StatusBadGateway
+		if h.metrics != nil {
+			h.metrics.UpstreamErrors.Add(1)
+		}
 		http.Error(w, "safety service unavailable", http.StatusBadGateway)
 		return
 	}
+	safetyVerdict = verdict.Verdict
+	threatType = verdict.ThreatType
 	if verdict.Verdict == "BLOCK" {
+		statusCode = http.StatusBadRequest
+		if h.metrics != nil {
+			h.metrics.BlocksTotal.Add(1)
+		}
 		http.Error(w, "blocked_by_safety", http.StatusBadRequest)
 		return
 	}
@@ -42,16 +97,18 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if h.router == nil {
+		statusCode = http.StatusBadGateway
 		http.Error(w, "router unavailable", http.StatusBadGateway)
 		return
 	}
 
 	requestedPrimary := h.router.ResolveProvider(req.Model)
-	selectedProvider := requestedPrimary
+	selectedProvider = requestedPrimary
 	fallbackFrom := ""
 
 	breaker, ok := h.breakers[selectedProvider]
 	if !ok {
+		statusCode = http.StatusBadRequest
 		http.Error(w, "unknown provider", http.StatusBadRequest)
 		return
 	}
@@ -60,6 +117,7 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 		selectedProvider = h.router.Secondary(selectedProvider)
 		breaker, ok = h.breakers[selectedProvider]
 		if !ok {
+			statusCode = http.StatusBadRequest
 			http.Error(w, "unknown provider", http.StatusBadRequest)
 			return
 		}
@@ -67,6 +125,7 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 
 	provider, ok := h.providers[selectedProvider]
 	if !ok {
+		statusCode = http.StatusBadRequest
 		http.Error(w, "unknown provider", http.StatusBadRequest)
 		return
 	}
@@ -87,12 +146,17 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		breaker.RecordFailure()
 		w.Header().Set("X-Debug-Breaker-State-After", breaker.State())
+		statusCode = http.StatusServiceUnavailable
+		if h.metrics != nil {
+			h.metrics.UpstreamErrors.Add(1)
+		}
 		http.Error(w, "upstream unavailable", http.StatusServiceUnavailable)
 		return
 	}
 	breaker.RecordSuccess()
 	w.Header().Set("X-Debug-Breaker-State-After", breaker.State())
 
+	statusCode = http.StatusOK
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(resp)
 }
