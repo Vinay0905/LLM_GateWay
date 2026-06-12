@@ -69,8 +69,12 @@ func main() {
 	routePolicy := router.RoutePolicy{
 		DefaultProvider: "gemini",
 		ModelMap: map[string]string{
-			"gemini": "gemini",
-			"groq":   "groq",
+			"gemini":           "gemini",
+			"gemini-1.5-flash": "gemini",
+			"gemini-1.5-pro":   "gemini",
+			"groq":             "groq",
+			"groq-llama3-70b":  "groq",
+			"llama-3.1-70b":    "groq",
 		},
 	}
 
