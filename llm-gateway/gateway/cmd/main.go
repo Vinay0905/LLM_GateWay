@@ -3,16 +3,17 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"llm-gateway/gateway/internal/handlers"
+	"llm-gateway/gateway/internal/middleware"
+	"llm-gateway/gateway/internal/providers"
+	"llm-gateway/gateway/internal/safety"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"golang.org/x/time/rate"
-
-	"llm-gateway/gateway/internal/handlers"
-	"llm-gateway/gateway/internal/middleware"
-	"llm-gateway/gateway/internal/providers"
 )
 
 // loadDotEnv loads local environment variables from a .env file when present.
@@ -56,9 +57,25 @@ func main() {
 	loadDotEnv(envPath)
 
 	mux := http.NewServeMux()
-	provider := providers.NewGeminiProvider(os.Getenv("GEMINI_API_KEY"))
-	chatHandler := handlers.NewChatHandler(provider)
 
+	// -------------------
+	provider := providers.NewGeminiProvider(os.Getenv("GEMINI_API_KEY"))
+
+	safetyBaseURL := os.Getenv("SAFETY_BASE_URL")
+	if safetyBaseURL == "" {
+		safetyBaseURL = "http://localhost:8000"
+	}
+
+	safetyClient := &safety.SafetyClient{
+		BaseURL: safetyBaseURL,
+		Client: &http.Client{
+			Timeout: 5 * time.Second,
+		},
+	}
+
+	chatHandler := handlers.NewChatHandler(provider, safetyClient)
+
+	// ----------------
 	validKeys := map[string]struct{}{
 		"dev-key": {},
 	}

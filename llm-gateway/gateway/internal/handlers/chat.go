@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"encoding/json"
-	"llm-gateway/gateway/internal/safety"
 	"llm-gateway/gateway/internal/types"
+
 	"net/http"
 	"strings"
 )
@@ -19,20 +19,23 @@ func (h *ChatHandler) HandleChat(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "prompt required", http.StatusBadRequest)
 		return
 	}
-
-	//policy gate in handler flow
-
-	verdict := safety.Analyze(req.Prompt)
-	if verdict.Verdict == "BLOCK" {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(map[string]any{
-			"error":       "blocked_by_safety",
-			"threat_type": verdict.ThreatType,
-			"score":       verdict.Score,
-			"reasons":     verdict.Reasons,
-		})
+	if h.safetyClient == nil {
+		http.Error(w, "safety service unavailable", http.StatusBadGateway)
 		return
+	}
+
+	verdict, err := h.safetyClient.Analyze(r.Context(), req.Prompt)
+	if err != nil {
+		http.Error(w, "safety service unavailable", http.StatusBadGateway)
+		return
+	}
+	if verdict.Verdict == "BLOCK" {
+		http.Error(w, "blocked_by_safety", http.StatusBadRequest)
+		return
+	}
+
+	if strings.TrimSpace(verdict.MaskedPrompt) != "" {
+		req.Prompt = verdict.MaskedPrompt
 	}
 
 	resp, err := h.provider.Generate(r.Context(), req)
