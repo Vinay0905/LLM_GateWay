@@ -8,9 +8,9 @@ export function TopNav() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-20 border-b border-neon-green/20 bg-black/85 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-neon-green/15 bg-black/88 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-sm font-bold tracking-wide text-neon-green">
+        <Link href="/" className="text-sm font-bold tracking-[0.08em] text-neon-green">
           {APP_NAME}
         </Link>
         <nav className="flex items-center gap-2">
@@ -22,8 +22,8 @@ export function TopNav() {
                 href={item.href}
                 className={`rounded-clean px-3 py-1 text-sm transition ${
                   isActive
-                    ? "border border-neon-green/80 bg-neon-green/20 text-neon-green shadow-neon-soft"
-                    : "border border-transparent text-neon-text hover:border-neon-green/40 hover:text-neon-green"
+                    ? "border border-neon-green/50 bg-neon-green/12 text-neon-green shadow-neon-soft"
+                    : "border border-transparent text-neon-text hover:border-neon-cyan/35 hover:text-neon-cyan"
                 }`}
               >
                 {item.label}

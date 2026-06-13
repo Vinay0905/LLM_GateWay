@@ -11,16 +11,19 @@ const config: Config = {
       colors: {
         neon: {
           black: "#05070A",
-          green: "#39FF14",
-          cyan: "#00F5FF",
+          green: "#8AF28E",
+          cyan: "#7DE8F5",
+          purple: "#B89CFF",
           panel: "#0B1117",
-          text: "#E8F5E9",
-          muted: "#7BAA84"
+          panel2: "#0D161F",
+          text: "#E2EEE3",
+          muted: "#89A891"
         }
       },
       boxShadow: {
-        neon: "0 0 18px rgba(57,255,20,0.35)",
-        "neon-soft": "0 0 10px rgba(57,255,20,0.2)"
+        neon: "0 0 10px rgba(138,242,142,0.18)",
+        "neon-soft": "0 0 6px rgba(138,242,142,0.14)",
+        panel: "0 8px 24px rgba(0,0,0,0.35)"
       },
       borderRadius: {
         clean: "12px"
