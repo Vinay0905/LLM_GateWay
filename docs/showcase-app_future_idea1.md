@@ -75,8 +75,8 @@ Outcome: one polished UI that proves routing, safety, resilience, and observabil
 ## Theme: Neon Retro Future
 
 - **Background:** near-black (`#05070A`)
-- **Primary neon:** acid green (`#39FF14`)
-- **Secondary neon:** cyan accents (`#00F5FF`) optional
+- **Primary neon lines:** soft green (`#8AF28E`) not high-intensity
+- **Secondary accents:** cool cyan (`#7DE8F5`) and synth purple (`#B89CFF`)
 - **Text:** off-white (`#E8F5E9`) with muted green-gray for secondary copy
 - **Borders:** thin glowing outlines on active controls
 
@@ -94,6 +94,23 @@ Outcome: one polished UI that proves routing, safety, resilience, and observabil
 - Accessibility:
   - maintain readable contrast
   - visible focus ring for keyboard nav
+
+### Color combination options (choose one per release)
+
+1. **Matrix Soft (default)**
+   - line green: `#8AF28E`
+   - accent cyan: `#7DE8F5`
+   - panel: `#0B1117`
+2. **Cyber Arcade**
+   - line green: `#9EFF8F`
+   - accent magenta: `#D98CFF`
+   - panel: `#111025`
+3. **Terminal Pro**
+   - line green: `#7FDB7F`
+   - accent amber: `#FFC66D`
+   - panel: `#0F1412`
+
+Guideline: never use full-bright green as a large fill. Keep neon primarily as border/line/glow accents.
 
 ---
 
