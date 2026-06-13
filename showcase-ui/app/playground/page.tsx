@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { OutputPanel } from "@/components/playground/OutputPanel";
 import { SnippetGrid } from "@/components/playground/SnippetGrid";
-import { NeonCard } from "@/components/ui/NeonCard";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SNIPPETS } from "@/lib/constants";
 import { callGateway } from "@/lib/gateway-client";
 import { SnippetPreset } from "@/lib/types";
@@ -47,22 +45,21 @@ export default function PlaygroundPage() {
   };
 
   return (
-    <div className="space-y-7">
-      <SectionHeading
-        tag="sandbox lab"
-        title="Playground Snippet Runner"
-        subtitle="Launch curated scenarios and inspect status, provider selection, and debug headers in one panel."
-      />
-      <NeonCard title="How To Use" subtitle="Best order for clean demos">
-        <ol className="list-decimal space-y-2 pl-5 text-sm text-neon-text">
+    <div className="space-y-8">
+      <header className="glass-panel p-6">
+        <h1 className="font-display text-5xl uppercase tracking-tight text-[#e5e2e1]">
+          Playground <span className="text-[#ccff80]">Console</span>
+        </h1>
+        <p className="mt-3 max-w-3xl text-[#c2cab0]">Launch curated scenarios and inspect status, provider selection, and debug headers in one panel.</p>
+      </header>
+      <section className="glass-panel p-5">
+        <p className="mb-2 text-xs uppercase tracking-[0.16em] text-[#ccff80]">recommended execution order</p>
+        <ol className="list-decimal space-y-2 pl-5 text-sm text-[#e5e2e1]">
           <li>Run Safe Prompt first (baseline healthy route).</li>
           <li>Run Safety Block to show sidecar enforcement.</li>
           <li>Run Retry/Timeout scenarios to demonstrate resilience.</li>
         </ol>
-      </NeonCard>
-      <NeonCard title="Snippet Playground" subtitle="One-click experiments to demo safety, retry, timeout, and routing behavior.">
-        <p className="text-sm text-neon-text">Each snippet sends a real request through your gateway and shows raw output plus optional debug headers.</p>
-      </NeonCard>
+      </section>
       <SnippetGrid snippets={SNIPPETS} loadingId={loadingId} onRun={runSnippet} />
       <OutputPanel status={status} provider={provider} body={body} debug={debug} />
     </div>
