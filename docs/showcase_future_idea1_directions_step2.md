@@ -32,6 +32,8 @@ Put keys in project root `.env`:
 ```env
 GEMINI_API_KEY=your_real_gemini_key
 GROQ_API_KEY=your_real_groq_key
+GEMINI_DEFAULT_MODEL=gemini-3.1-flash-lite
+GROQ_DEFAULT_MODEL=llama-3.1-8b-instant
 ```
 
 Then start gateway with:
@@ -91,8 +93,8 @@ npm run dev
 - Confirm gateway process is restarted after code changes
 - Confirm `.env` loaded with real keys
 - Confirm model names are supported:
-  - Gemini: `gemini`, `gemini-1.5-flash`, `gemini-1.5-pro`
-  - Groq: `groq`, `groq-llama3-70b`, `llama-3.1-70b`
+  - Gemini: `gemini`, `gemini-3.1-flash-lite` (or any supported `gemini-*`)
+  - Groq: `groq`, `llama-3.1-8b-instant` (or any supported `llama-*`/`mixtral-*`)
 - Check gateway terminal for upstream status errors (`401`, `429`, `5xx`)
 
 ---
