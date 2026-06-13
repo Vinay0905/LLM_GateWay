@@ -1,6 +1,6 @@
 export function GatewayHeroGraphic() {
   return (
-    <div className="relative overflow-hidden rounded-clean border border-neon-cyan/25 bg-black/40 p-4 hero-grid">
+    <div className="relative overflow-hidden border border-[#1e293b] bg-black/40 p-4">
       <svg viewBox="0 0 720 420" className="h-[280px] w-full">
         <defs>
           <linearGradient id="coreGlow" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -28,19 +28,19 @@ export function GatewayHeroGraphic() {
         <rect x="520" y="70" width="130" height="50" rx="10" fill="rgba(11,22,29,0.95)" stroke="rgba(125,232,245,0.55)" />
         <rect x="520" y="300" width="130" height="50" rx="10" fill="rgba(11,22,29,0.95)" stroke="rgba(184,156,255,0.55)" />
 
-        <text x="95" y="101" fill="#7DE8F5" fontSize="13" className="font-dot">
+        <text x="95" y="101" fill="#7DE8F5" fontSize="13">
           SAFETY
         </text>
-        <text x="95" y="331" fill="#B89CFF" fontSize="13" className="font-dot">
+        <text x="95" y="331" fill="#B89CFF" fontSize="13">
           ROUTER
         </text>
-        <text x="542" y="101" fill="#7DE8F5" fontSize="13" className="font-dot">
+        <text x="542" y="101" fill="#7DE8F5" fontSize="13">
           GEMINI
         </text>
-        <text x="542" y="331" fill="#B89CFF" fontSize="13" className="font-dot">
+        <text x="542" y="331" fill="#B89CFF" fontSize="13">
           GROQ
         </text>
-        <text x="320" y="214" fill="#8AF28E" fontSize="13" className="font-dot">
+        <text x="320" y="214" fill="#8AF28E" fontSize="13">
           GATEWAY CORE
         </text>
 

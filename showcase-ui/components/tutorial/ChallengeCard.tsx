@@ -9,10 +9,10 @@ type ChallengeCardProps = {
 
 export function ChallengeCard({ step, isRunning, onRun }: ChallengeCardProps) {
   return (
-    <div className="rounded-clean border border-neon-green/30 bg-neon-panel/70 p-4">
-      <h3 className="text-base font-semibold text-neon-green">{step.title}</h3>
-      <p className="mt-1 text-sm text-neon-text">{step.goal}</p>
-      <p className="mt-2 text-xs text-neon-muted">Expected status: {step.expectedStatus}</p>
+    <div className="glass-panel technical-card p-4">
+      <h3 className="font-display text-lg text-[#ccff80]">{step.title}</h3>
+      <p className="mt-2 text-sm text-[#e5e2e1]">{step.goal}</p>
+      <p className="mt-2 text-xs uppercase tracking-[0.12em] text-[#c2cab0]">Expected status: {step.expectedStatus}</p>
       <div className="mt-4 flex justify-end">
         <NeonButton variant="outline" onClick={() => onRun(step)} disabled={isRunning}>
           {isRunning ? "Running..." : "Run Step"}

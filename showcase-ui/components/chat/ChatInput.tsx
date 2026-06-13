@@ -18,7 +18,7 @@ export function ChatInput({ prompt, model, loading, onPromptChange, onModelChang
         <select
           value={model}
           onChange={(e) => onModelChange(e.target.value)}
-          className="rounded-clean border border-neon-green/40 bg-black/60 px-3 py-2 text-sm text-neon-text focus:outline-none focus:ring-2 focus:ring-neon-green"
+          className="border border-[#424936] bg-[#0e0e0e] px-3 py-2 text-sm text-[#e5e2e1] focus:outline-none focus:ring-2 focus:ring-[#ccff80]"
         >
           {MODEL_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
@@ -30,7 +30,7 @@ export function ChatInput({ prompt, model, loading, onPromptChange, onModelChang
           value={prompt}
           onChange={(e) => onPromptChange(e.target.value)}
           placeholder="Ask gateway-backed AI..."
-          className="h-24 rounded-clean border border-neon-green/40 bg-black/60 px-3 py-2 text-sm text-neon-text placeholder:text-neon-muted focus:outline-none focus:ring-2 focus:ring-neon-green"
+          className="h-24 border border-[#424936] bg-[#0e0e0e] px-3 py-2 text-sm text-[#e5e2e1] placeholder:text-[#8c947c] focus:outline-none focus:ring-2 focus:ring-[#ccff80]"
         />
       </div>
       <div className="flex justify-end">

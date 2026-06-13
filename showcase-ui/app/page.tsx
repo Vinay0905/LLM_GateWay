@@ -1,79 +1,79 @@
 import Link from "next/link";
 import { GatewayHeroGraphic } from "@/components/hero/GatewayHeroGraphic";
 import { GatewayStatusPanel } from "@/components/status/GatewayStatusPanel";
-import { NeonCard } from "@/components/ui/NeonCard";
 import { NeonButton } from "@/components/ui/NeonButton";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { StatPill } from "@/components/ui/StatPill";
 
 export default function HomePage() {
   return (
-    <div className="space-y-8">
-      <section className="glass-border overflow-hidden rounded-clean bg-gradient-to-b from-neon-panel/90 to-black/80 p-5 md:p-7">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.1fr,1fr]">
-          <div>
-            <p className="font-dot text-xs uppercase tracking-[0.18em] text-neon-cyan">retrofuture llm platform</p>
-            <h1 className="mt-3 font-display text-4xl leading-tight text-neon-text md:text-6xl">
-              LLM Gateway
-              <span className="block text-neon-green">Showcase Console</span>
-            </h1>
-            <p className="mt-4 max-w-xl text-sm text-neon-muted md:text-base">
-              A production-style gateway interface demonstrating safety filtering, multi-provider routing, resilience controls, and observability
-              in one interactive experience.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/playground">
-                <NeonButton>Enter Playground</NeonButton>
-              </Link>
-              <Link href="/tutorial">
-                <NeonButton variant="outline">Run Guided Tour</NeonButton>
-              </Link>
-              <Link href="/chat">
-                <NeonButton variant="outline">Open Chat Console</NeonButton>
-              </Link>
-            </div>
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              <StatPill label="Unified Endpoint" value="POST /v1/chat" />
-              <StatPill label="Providers" value="Gemini + Groq" />
-              <StatPill label="Control Layers" value="Safety + Resilience" />
-            </div>
-          </div>
+    <div className="space-y-10">
+      <section className="relative min-h-[78vh] overflow-hidden rounded-xl border border-[#1e293b] bg-[#131313]/70 pt-8">
+        <div className="absolute inset-0 opacity-25">
           <GatewayHeroGraphic />
+        </div>
+        <div className="relative z-10 mx-auto flex h-full max-w-4xl flex-col items-center justify-center px-6 py-20 text-center">
+          <h1 className="font-display hero-text-glow text-[72px] leading-none tracking-tight text-[#ccff80] md:text-[140px]">GATEWAY</h1>
+          <p className="mt-4 max-w-2xl text-sm uppercase tracking-[0.24em] text-[#5de6ff] md:text-base">
+            High-performance llm routing, safety, and metrics orchestration.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Link href="/playground">
+              <NeonButton>Enter Playground</NeonButton>
+            </Link>
+            <Link href="/about">
+              <NeonButton variant="outline">Read Story</NeonButton>
+            </Link>
+          </div>
         </div>
       </section>
 
-      <SectionHeading
-        tag="feature lanes"
-        title="What You Can Showcase"
-        subtitle="Each lane maps to your backend phases and gives you a repeatable demo flow for interviews and portfolio walkthroughs."
-      />
+      <section className="grid gap-4 md:grid-cols-3">
+        <div className="glass-panel p-5">
+          <div className="mb-2 text-xs uppercase tracking-[0.16em] text-[#c2cab0]">System Uptime</div>
+          <div className="font-display text-3xl text-[#ccff80]">99.98%</div>
+          <div className="mt-4 h-1 w-full bg-[#424936]/30">
+            <div className="h-full w-[99.98%] bg-[#ccff80]" />
+          </div>
+        </div>
+        <div className="glass-panel p-5">
+          <div className="mb-2 text-xs uppercase tracking-[0.16em] text-[#c2cab0]">Avg Latency</div>
+          <div className="font-display text-3xl text-[#5de6ff]">42ms</div>
+          <div className="mt-4 flex items-end gap-1">
+            <div className="h-2 w-1 bg-[#5de6ff]/40" />
+            <div className="h-6 w-1 bg-[#5de6ff]" />
+            <div className="h-4 w-1 bg-[#5de6ff]/60" />
+            <div className="h-5 w-1 bg-[#5de6ff]" />
+            <div className="h-3 w-1 bg-[#5de6ff]/40" />
+          </div>
+        </div>
+        <div className="glass-panel p-5">
+          <div className="mb-2 text-xs uppercase tracking-[0.16em] text-[#c2cab0]">Safety Shield</div>
+          <div className="font-display text-3xl text-[#ccff80]">ACTIVE</div>
+          <div className="mt-4 flex gap-1">
+            <div className="h-1 flex-1 bg-[#ccff80]" />
+            <div className="h-1 flex-1 bg-[#ccff80]" />
+            <div className="h-1 flex-1 bg-[#ccff80]/20" />
+            <div className="h-1 flex-1 bg-[#ccff80]/20" />
+          </div>
+        </div>
+      </section>
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        <NeonCard title="Tutorial Mode" subtitle="Narrated engineering demo">
-          <p className="text-sm text-neon-text">Step-by-step guided tasks with live request outcomes and expected status checks.</p>
-          <div className="mt-4">
-            <Link href="/tutorial">
-              <NeonButton variant="outline">Launch Tutorial</NeonButton>
-            </Link>
+      <section>
+        <h2 className="font-display mb-6 text-3xl uppercase tracking-tight text-[#ccff80]">Infrastructure Layers</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="glass-panel technical-card p-5">
+            <h3 className="font-display text-xl text-[#e5e2e1]">Tutorial Mode</h3>
+            <p className="mt-2 text-sm text-[#c2cab0]">Guided phase-based walkthrough of gateway request behavior.</p>
           </div>
-        </NeonCard>
-        <NeonCard title="Playground" subtitle="Snippet + debug runner">
-          <p className="text-sm text-neon-text">One-click snippets for safe, blocked, retry, and timeout scenarios with real output.</p>
-          <div className="mt-4">
-            <Link href="/playground">
-              <NeonButton variant="outline">Open Playground</NeonButton>
-            </Link>
+          <div className="glass-panel technical-card p-5">
+            <h3 className="font-display text-xl text-[#e5e2e1]">Playground</h3>
+            <p className="mt-2 text-sm text-[#c2cab0]">Run deterministic safety/routing/resilience snippets with outputs.</p>
           </div>
-        </NeonCard>
-        <NeonCard title="Real Chat" subtitle="Actual gateway chat path">
-          <p className="text-sm text-neon-text">A practical chat interface with model picker, history, and metadata-rich responses.</p>
-          <div className="mt-4">
-            <Link href="/chat">
-              <NeonButton variant="outline">Start Chat</NeonButton>
-            </Link>
+          <div className="glass-panel technical-card p-5">
+            <h3 className="font-display text-xl text-[#e5e2e1]">Live Chat</h3>
+            <p className="mt-2 text-sm text-[#c2cab0]">Real gateway-backed chat with provider and status metadata.</p>
           </div>
-        </NeonCard>
-      </div>
+        </div>
+      </section>
 
       <GatewayStatusPanel />
     </div>

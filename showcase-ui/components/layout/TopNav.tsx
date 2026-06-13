@@ -8,11 +8,10 @@ export function TopNav() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-20 border-b border-neon-cyan/20 bg-black/90 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="font-dot text-[10px] uppercase tracking-[0.2em] text-neon-cyan">nexus.ui</span>
-          <span className="font-display text-sm tracking-[0.08em] text-neon-green">{APP_NAME}</span>
+    <header className="fixed top-0 z-50 w-full border-b border-[#424936] bg-[#131313]/80 backdrop-blur-md">
+      <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between px-6">
+        <Link href="/" className="font-display text-2xl tracking-tight text-[#ccff80] uppercase">
+          {APP_NAME}
         </Link>
         <nav className="flex items-center gap-2">
           {NAV_ITEMS.map((item) => {
@@ -21,10 +20,10 @@ export function TopNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-clean px-3 py-1 text-sm transition ${
+                className={`px-3 py-1 text-xs uppercase tracking-[0.16em] transition ${
                   isActive
-                    ? "border border-neon-green/45 bg-neon-green/10 text-neon-green shadow-neon-soft"
-                    : "border border-transparent text-neon-text hover:border-neon-cyan/35 hover:text-neon-cyan"
+                    ? "border-b-2 border-[#ccff80] text-[#ccff80]"
+                    : "text-[#c2cab0] hover:text-[#ccff80]"
                 }`}
               >
                 {item.label}
