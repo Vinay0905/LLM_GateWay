@@ -16,6 +16,7 @@ export function StepRunner({ steps }: StepRunnerProps) {
   const [result, setResult] = useState<string>("Run a tutorial step to inspect live behavior.");
   const [status, setStatus] = useState<string>("-");
   const [lastStep, setLastStep] = useState<string>("-");
+  const [completed, setCompleted] = useState<number>(0);
 
   const runStep = async (step: TutorialStep) => {
     setRunningId(step.id);
@@ -23,6 +24,7 @@ export function StepRunner({ steps }: StepRunnerProps) {
     const res = await callGateway(step.payload);
     if (res.ok) {
       setStatus(String(res.status));
+      setCompleted((n) => Math.min(steps.length, n + 1));
       setResult(`PASS: ${step.explanation}\n\nOutput: ${res.data.output}`);
     } else {
       setStatus(String(res.error.status));
@@ -42,6 +44,9 @@ export function StepRunner({ steps }: StepRunnerProps) {
         <div className="grid grid-cols-2 gap-2">
           <StatPill label="Last Step" value={lastStep} />
           <StatPill label="Status" value={status} />
+        </div>
+        <div className="mt-2">
+          <StatPill label="Progress" value={`${completed}/${steps.length}`} />
         </div>
         <pre className="mt-4 whitespace-pre-wrap rounded-clean border border-neon-green/30 bg-black/45 p-3 text-xs text-neon-text">{result}</pre>
       </NeonCard>

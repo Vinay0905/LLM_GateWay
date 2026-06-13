@@ -42,6 +42,7 @@ llm-gateway/safety_sidecar/.venv/
 llm-gateway/logs/*
 !llm-gateway/logs/.gitkeep
 !llm-gateway/logs/experiment_log.jsonl
+Stitch_Designs/
 # Go build cache
 .gocache/
 **/.gocache/

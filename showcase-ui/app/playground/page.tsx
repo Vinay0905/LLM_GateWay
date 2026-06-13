@@ -4,6 +4,7 @@ import { useState } from "react";
 import { OutputPanel } from "@/components/playground/OutputPanel";
 import { SnippetGrid } from "@/components/playground/SnippetGrid";
 import { NeonCard } from "@/components/ui/NeonCard";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SNIPPETS } from "@/lib/constants";
 import { callGateway } from "@/lib/gateway-client";
 import { SnippetPreset } from "@/lib/types";
@@ -46,7 +47,19 @@ export default function PlaygroundPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
+      <SectionHeading
+        tag="sandbox lab"
+        title="Playground Snippet Runner"
+        subtitle="Launch curated scenarios and inspect status, provider selection, and debug headers in one panel."
+      />
+      <NeonCard title="How To Use" subtitle="Best order for clean demos">
+        <ol className="list-decimal space-y-2 pl-5 text-sm text-neon-text">
+          <li>Run Safe Prompt first (baseline healthy route).</li>
+          <li>Run Safety Block to show sidecar enforcement.</li>
+          <li>Run Retry/Timeout scenarios to demonstrate resilience.</li>
+        </ol>
+      </NeonCard>
       <NeonCard title="Snippet Playground" subtitle="One-click experiments to demo safety, retry, timeout, and routing behavior.">
         <p className="text-sm text-neon-text">Each snippet sends a real request through your gateway and shows raw output plus optional debug headers.</p>
       </NeonCard>
