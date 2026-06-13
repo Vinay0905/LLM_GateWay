@@ -13,8 +13,8 @@ export const NAV_ITEMS = [
 export const MODEL_OPTIONS = [
   { label: "Gemini", value: "gemini" },
   { label: "Groq", value: "groq" },
-  { label: "Gemini 1.5 Flash", value: "gemini-1.5-flash" },
-  { label: "Groq Llama3 70B", value: "groq-llama3-70b" }
+  { label: "Gemini 3.1 Flash Lite", value: "gemini-3.1-flash-lite" },
+  { label: "Groq Llama 3.1 8B Instant", value: "llama-3.1-8b-instant" }
 ];
 
 export const SNIPPETS: SnippetPreset[] = [

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -24,15 +25,22 @@ func NewGroqProvider(apiKey string) *GroqProvider {
 }
 
 func groqModel(model string) string {
+	defaultModel := strings.TrimSpace(os.Getenv("GROQ_DEFAULT_MODEL"))
+	if defaultModel == "" {
+		defaultModel = "llama-3.1-8b-instant"
+	}
+
 	m := strings.TrimSpace(strings.ToLower(model))
 	switch m {
 	case "", "groq", "groq-llama3-70b", "llama-3.1-70b":
-		return "llama-3.1-70b-versatile"
+		return defaultModel
+	case "llama-3.1-8b-instant", "llama-3.3-70b-versatile", "llama-3.1-70b-versatile":
+		return m
 	default:
 		if strings.Contains(m, "llama") || strings.Contains(m, "mixtral") {
 			return m
 		}
-		return "llama-3.1-70b-versatile"
+		return defaultModel
 	}
 }
 

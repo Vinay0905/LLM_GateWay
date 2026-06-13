@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"time"
 
@@ -25,17 +26,22 @@ func NewGeminiProvider(apiKey string) *GeminiProvider {
 }
 
 func geminiModel(model string) string {
+	defaultModel := strings.TrimSpace(os.Getenv("GEMINI_DEFAULT_MODEL"))
+	if defaultModel == "" {
+		defaultModel = "gemini-3.1-flash-lite"
+	}
+
 	m := strings.TrimSpace(strings.ToLower(model))
 	switch m {
 	case "", "gemini":
-		return "gemini-1.5-flash"
-	case "gemini-1.5-pro", "gemini-1.5-flash":
+		return defaultModel
+	case "gemini-3.1-flash-lite", "gemini-3.1-pro", "gemini-2.5-flash", "gemini-2.5-pro":
 		return m
 	default:
 		if strings.HasPrefix(m, "gemini-") {
 			return m
 		}
-		return "gemini-1.5-flash"
+		return defaultModel
 	}
 }
 
