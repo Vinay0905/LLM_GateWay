@@ -37,8 +37,11 @@ coverage.out
 *.test
 
 # Project runtime directories
-llm-gateway/logs/
 llm-gateway/safety_sidecar/.venv/
+!llm-gateway/logs/
+llm-gateway/logs/*
+!llm-gateway/logs/.gitkeep
+!llm-gateway/logs/experiment_log.jsonl
 # Go build cache
 .gocache/
 **/.gocache/
