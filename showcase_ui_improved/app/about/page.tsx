@@ -79,7 +79,7 @@ export default function AboutPage() {
           <div className="space-y-3 font-technical-sm text-sm text-on-surface-variant">
             <div className="p-3 bg-surface-container/50 border border-outline-variant/30 rounded">
               <h4 className="font-bold text-on-surface mb-1">1. Playground Sandbox</h4>
-              <p className="text-xs">Run deterministic presets to showcase the system's exact response under safety blocks, timeouts, and rate limits.</p>
+              <p className="text-xs">Run deterministic presets to showcase the system&apos;s exact response under safety blocks, timeouts, and rate limits.</p>
             </div>
             <div className="p-3 bg-surface-container/50 border border-outline-variant/30 rounded">
               <h4 className="font-bold text-on-surface mb-1">2. Interactive Tutorial</h4>

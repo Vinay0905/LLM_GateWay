@@ -143,3 +143,93 @@ body {
 .theme-transition {
   transition: all 0.4s ease;
 }
+
+/* CRT Scanline Hardware Screen Filter */
+.crt-screen {
+  position: relative;
+}
+
+.crt-screen::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
+  background-size: 100% 4px, 6px 100%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+/* Glitch animation for screen transitions */
+@keyframes screen-glitch {
+  0% {
+    filter: hue-rotate(0deg) contrast(1);
+    transform: translate(0, 0) skew(0deg);
+  }
+  20% {
+    filter: hue-rotate(45deg) contrast(1.2);
+    transform: translate(-1px, 2px) skew(1deg);
+  }
+  40% {
+    filter: hue-rotate(90deg) contrast(0.8);
+    transform: translate(-2px, -1px) skew(-1deg);
+  }
+  60% {
+    filter: hue-rotate(180deg) contrast(1.3);
+    transform: translate(2px, 1px) skew(2deg);
+  }
+  80% {
+    filter: hue-rotate(270deg) contrast(0.9);
+    transform: translate(1px, -2px) skew(-1deg);
+  }
+  100% {
+    filter: hue-rotate(360deg) contrast(1);
+    transform: translate(0, 0) skew(0deg);
+  }
+}
+
+.glitch-effect {
+  animation: screen-glitch 0.25s steps(2) 1;
+}
+
+/* Technical Hover Bloom Spotlight */
+.technical-card, .glass-panel, button, .hover-bloom {
+  position: relative;
+  overflow: hidden;
+}
+
+.technical-card::before, .glass-panel::before, button::before, .hover-bloom::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    180px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px),
+    rgba(var(--color-primary), 0.09),
+    transparent 60%
+  );
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  opacity: 0;
+}
+
+.technical-card:hover::before, .glass-panel:hover::before, button:hover::before, .hover-bloom:hover::before {
+  opacity: 1;
+}
+
+/* Make sure child elements render above the bloom spotlight */
+.technical-card > *, .glass-panel > *, button > *, .hover-bloom > * {
+  position: relative;
+  z-index: 10;
+}
+
+

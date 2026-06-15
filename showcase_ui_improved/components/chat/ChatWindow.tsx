@@ -8,6 +8,8 @@ export type ChatMessage = {
   role: "user" | "assistant" | "system";
   content: string;
   meta?: string;
+  maskedPrompt?: string;
+  piiTypes?: string[];
 };
 
 type ChatWindowProps = {
@@ -36,7 +38,14 @@ export function ChatWindow({ messages }: ChatWindowProps) {
         </div>
       ) : (
         messages.map((msg) => (
-          <MessageBubble key={msg.id} role={msg.role} content={msg.content} meta={msg.meta} />
+          <MessageBubble
+            key={msg.id}
+            role={msg.role}
+            content={msg.content}
+            meta={msg.meta}
+            maskedPrompt={msg.maskedPrompt}
+            piiTypes={msg.piiTypes}
+          />
         ))
       )}
     </div>

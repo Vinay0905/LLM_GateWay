@@ -6,7 +6,7 @@ import { useAppTheme } from "@/app/ThemeContext";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useAppTheme();
+  const { theme, toggleTheme, crtEnabled, toggleCrt } = useAppTheme();
 
   const links = [
     { name: "Home", href: "/" },
@@ -52,6 +52,24 @@ export default function Navbar() {
 
         {/* Actions / Theme Toggle */}
         <div className="flex items-center gap-4">
+          {/* CRT Monitor Filter */}
+          <button
+            onClick={toggleCrt}
+            className={`flex items-center gap-2 px-3 py-1.5 border rounded-lg transition-all group ${
+              crtEnabled
+                ? "border-primary bg-primary/10 text-primary shadow-[0_0_12px_rgba(204,255,128,0.15)]"
+                : "border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary"
+            }`}
+            title="Toggle Retro CRT Scanlines"
+          >
+            <span className="material-symbols-outlined text-[18px]">
+              monitor
+            </span>
+            <span className="font-technical-sm text-xs font-medium tracking-tight">
+              CRT
+            </span>
+          </button>
+
           {/* Theme Switcher Button */}
           <button
             onClick={toggleTheme}

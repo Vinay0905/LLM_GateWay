@@ -4,6 +4,31 @@ import { gatewayApiKey, gatewayBaseUrl } from "@/app/api/_shared";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.text();
+    
+    // Call sidecar for PII metadata (so frontend can show before/after preview)
+    let maskedPrompt = "";
+    let piiTypes: string[] = [];
+    try {
+      const parsed = JSON.parse(body);
+      const prompt = parsed.prompt || "";
+      if (prompt) {
+        const sidecarRes = await fetch(`${process.env.SIDECAR_BASE_URL || "http://localhost:8000"}/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt }),
+          cache: "no-store"
+        });
+        if (sidecarRes.ok) {
+          const sidecarData = await sidecarRes.json();
+          maskedPrompt = sidecarData.masked_prompt || "";
+          piiTypes = sidecarData.pii_types_detected || [];
+        }
+      }
+    } catch (e) {
+      // Fallback/Fail-safe: do not fail request if sidecar is unavailable
+      console.warn("Failed sidecar analysis:", e);
+    }
+
     const upstream = await fetch(`${gatewayBaseUrl()}/v1/chat`, {
       method: "POST",
       headers: {
@@ -33,6 +58,13 @@ export async function POST(req: NextRequest) {
       const value = upstream.headers.get(h);
       if (value) res.headers.set(h, value);
     });
+
+    if (maskedPrompt) {
+      res.headers.set("X-Masked-Prompt", encodeURIComponent(maskedPrompt));
+    }
+    if (piiTypes.length > 0) {
+      res.headers.set("X-PII-Types", piiTypes.join(","));
+    }
 
     return res;
   } catch (error: any) {

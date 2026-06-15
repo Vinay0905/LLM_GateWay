@@ -1,305 +1,107 @@
-✓ Compiled (309 modules)
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 94ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 94ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 95ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 95ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 96ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 3ms
- ✓ Compiled /favicon.ico in 321ms (336 modules)
- GET /favicon.ico 200 in 346ms
- GET / 200 in 45ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 14ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 14ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 14ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 17ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 17ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 4ms
- ✓ Compiled /tutorial in 139ms (593 modules)
- ✓ Compiled /playground in 106ms (605 modules)
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 10ms
- ✓ Compiled /chat in 120ms (617 modules)
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 10ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 14ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 12ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 16ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 17ms
- ✓ Compiled /about in 84ms (621 modules)
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 12ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 14ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 15ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 15ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 8ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 8ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 8ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 12ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 13ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 11ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 11ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 16ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/metrics 500 in 17ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 6ms
- ⨯ [TypeError: fetch failed] {
-  [cause]: AggregateError [ECONNREFUSED]: 
-      at internalConnectMultiple (node:net:1193:18)
-      at afterConnectMultiple (node:net:1783:7) {
-    code: 'ECONNREFUSED',
-    [errors]: [ [Error], [Error] ]
-  }
-}
- GET /api/health 500 in 11ms
+ showcase_ui_improved@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.5
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./app/page.tsx
+Error: 
+  x Unexpected token `div`. Expected jsx identifier
+    ,-[/Users/mast/Documents/VInayPrograming/LLM_GateWay/showcase_ui_improved/app/page.tsx:43:1]
+ 43 |   }, []);
+ 44 | 
+ 45 |   return (
+ 46 |     <div className="space-y-16 py-8">
+    :      ^^^
+ 47 |       {/* Hero Section */}
+ 48 |       <section className="relative min-h-[75vh] flex flex-col justify-center items-center border border-outline-variant bg-surface/50 rounded-xl overflow-hidden px-6 py-20 text-center">
+ 49 |         {/* Dynamic Dotted Grid Canvas Accent */}
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+
+
+> Build failed because of webpack errors
+(.venv) (base) mast@Mastans-MacBook-Air showcase_ui_improved % clear
+(.venv) (base) mast@Mastans-MacBook-Air showcase_ui_improved % npm run dev
+
+> showcase_ui_improved@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1012ms
+ ○ Compiling / ...
+ ⨯ ./app/page.tsx
+Error: 
+  × Unexpected token `div`. Expected jsx identifier
+    ╭─[/Users/mast/Documents/VInayPrograming/LLM_GateWay/showcase_ui_improved/app/page.tsx:43:1]
+ 43 │   }, []);
+ 44 │ 
+ 45 │   return (
+ 46 │     <div className="space-y-16 py-8">
+    ·      ───
+ 47 │       {/* Hero Section */}
+ 48 │       <section className="relative min-h-[75vh] flex flex-col justify-center items-center border border-outline-variant bg-surface/50 rounded-xl overflow-hidden px-6 py-20 text-center">
+ 49 │         {/* Dynamic Dotted Grid Canvas Accent */}
+    ╰────
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ ⨯ ./app/page.tsx
+Error: 
+  × Unexpected token `div`. Expected jsx identifier
+    ╭─[/Users/mast/Documents/VInayPrograming/LLM_GateWay/showcase_ui_improved/app/page.tsx:43:1]
+ 43 │   }, []);
+ 44 │ 
+ 45 │   return (
+ 46 │     <div className="space-y-16 py-8">
+    ·      ───
+ 47 │       {/* Hero Section */}
+ 48 │       <section className="relative min-h-[75vh] flex flex-col justify-center items-center border border-outline-variant bg-surface/50 rounded-xl overflow-hidden px-6 py-20 text-center">
+ 49 │         {/* Dynamic Dotted Grid Canvas Accent */}
+    ╰────
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ ⨯ ./app/page.tsx
+Error: 
+  × Unexpected token `div`. Expected jsx identifier
+    ╭─[/Users/mast/Documents/VInayPrograming/LLM_GateWay/showcase_ui_improved/app/page.tsx:43:1]
+ 43 │   }, []);
+ 44 │ 
+ 45 │   return (
+ 46 │     <div className="space-y-16 py-8">
+    ·      ───
+ 47 │       {/* Hero Section */}
+ 48 │       <section className="relative min-h-[75vh] flex flex-col justify-center items-center border border-outline-variant bg-surface/50 rounded-xl overflow-hidden px-6 py-20 text-center">
+ 49 │         {/* Dynamic Dotted Grid Canvas Accent */}
+    ╰────
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/page.tsx
+ GET /_next/static/webpack/0eb03f690ba599ba.webpack.hot-update.json 500 in 1589ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 500 in 108ms
+ GET / 500 in 3ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/mast/Documents/VInayPrograming/LLM_GateWay/showcase_ui_improved/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/Users/mast/Documents/VInayPrograming/LLM_GateWay/showcase_ui_improved/.next/cache/webpack/client-development-fallback/0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/mast/Documents/VInayPrograming/LLM_GateWay/showcase_ui_improved/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/Users/mast/Documents/VInayPrograming/LLM_GateWay/showcase_ui_improved/.next/cache/webpack/client-development-fallback/0.pack.gz'

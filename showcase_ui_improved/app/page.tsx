@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { fetchGatewayHealth, fetchGatewayMetrics } from "@/lib/gateway-client";
+import LatencySparkline from "@/components/LatencySparkline";
+import LogStreamer from "@/components/LogStreamer";
 
 export default function HomePage() {
   const [metrics, setMetrics] = useState<{
@@ -90,21 +92,16 @@ export default function HomePage() {
         </div>
 
         {/* Metric 2 */}
-        <div className="glass-panel p-6 flex flex-col justify-between rounded-xl hover:border-secondary/50 transition-all">
-          <div className="flex items-center justify-between mb-4">
+        <div className="glass-panel p-6 flex flex-col justify-between rounded-xl hover:border-secondary/50 transition-all gap-4">
+          <div className="flex items-center justify-between">
             <span className="font-display text-xs text-on-surface-variant uppercase tracking-widest">Avg Latency</span>
             <span className="material-symbols-outlined text-secondary text-[20px]">speed</span>
           </div>
-          <div className="font-display text-3xl sm:text-4xl text-secondary font-bold tracking-tight">{metrics.latency}</div>
-          <div className="mt-4 flex items-end gap-1.5 h-6">
-            <div className="w-1 bg-secondary/40 h-[40%] rounded-sm"></div>
-            <div className="w-1 bg-secondary h-[100%] rounded-sm"></div>
-            <div className="w-1 bg-secondary/60 h-[60%] rounded-sm"></div>
-            <div className="w-1 bg-secondary h-[80%] rounded-sm"></div>
-            <div className="w-1 bg-secondary/30 h-[30%] rounded-sm"></div>
-            <div className="w-1 bg-secondary/70 h-[75%] rounded-sm"></div>
+          <div className="flex-grow flex items-center">
+            <LatencySparkline />
           </div>
         </div>
+
 
         {/* Metric 3 */}
         <div className="glass-panel p-6 flex flex-col justify-between rounded-xl hover:border-primary/50 transition-all">
@@ -201,9 +198,15 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+      {/* Audit Log Streamer Section */}
+      <section className="space-y-6">
+        <h2 className="font-display text-2xl text-primary uppercase tracking-tight">System Audit logs</h2>
+        <LogStreamer />
       </section>
     </div>
   );
