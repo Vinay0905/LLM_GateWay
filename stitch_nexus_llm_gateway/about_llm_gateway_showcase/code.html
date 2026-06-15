@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0a0a0a;
+            color: #e5e2e1;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .dot-matrix-bg {
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border: 0.5px solid #1e293b;
+        }
+
+        .technical-border {
+            border: 1px solid #1e293b;
+            transition: all 0.3s ease-out;
+        }
+
+        .technical-border:hover {
+            border-color: #a3e635;
+            box-shadow: inset 0 0 8px rgba(163, 230, 53, 0.1), 0 0 12px rgba(163, 230, 53, 0.05);
+        }
+
+        .dotted-text {
+            text-shadow: 2px 2px 0px rgba(163, 230, 53, 0.2);
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes ping-slow {
+            0% { transform: scale(1); opacity: 1; }
+            70%, 100% { transform: scale(2.5); opacity: 0; }
+        }
+        .ping-dot {
+            animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        /* Technical Diagram Animation */
+        .diagram-node {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 3s linear forwards;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#2fd9f4",
+                      "secondary-container": "#00cbe6",
+                      "error": "#ffb4ab",
+                      "primary-fixed": "#b2f746",
+                      "on-primary": "#213600",
+                      "outline-variant": "#424936",
+                      "error-container": "#93000a",
+                      "surface-container": "#201f1f",
+                      "on-surface-variant": "#c2cab0",
+                      "on-secondary-fixed-variant": "#004e5a",
+                      "surface-variant": "#353534",
+                      "on-tertiary-fixed-variant": "#6900b3",
+                      "primary-fixed-dim": "#98da27",
+                      "surface": "#131313",
+                      "on-background": "#e5e2e1",
+                      "on-tertiary-container": "#7f24ce",
+                      "secondary": "#5de6ff",
+                      "tertiary-fixed-dim": "#ddb7ff",
+                      "on-tertiary": "#490080",
+                      "on-tertiary-fixed": "#2c0051",
+                      "on-secondary": "#00363e",
+                      "on-error": "#690005",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-container": "#00515d",
+                      "surface-tint": "#98da27",
+                      "on-primary-container": "#416400",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-container-low": "#1c1b1b",
+                      "inverse-on-surface": "#313030",
+                      "surface-dim": "#131313",
+                      "primary-container": "#a3e635",
+                      "surface-container-highest": "#353534",
+                      "tertiary-fixed": "#f0dbff",
+                      "surface-container-lowest": "#0e0e0e",
+                      "tertiary-container": "#e5c7ff",
+                      "on-primary-fixed-variant": "#334f00",
+                      "secondary-fixed": "#a2eeff",
+                      "inverse-surface": "#e5e2e1",
+                      "inverse-primary": "#446900",
+                      "primary": "#ccff80",
+                      "outline": "#8c947c",
+                      "on-secondary-fixed": "#001f25",
+                      "on-surface": "#e5e2e1",
+                      "surface-bright": "#3a3939",
+                      "tertiary": "#f8eaff",
+                      "background": "#131313",
+                      "on-primary-fixed": "#121f00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "md": "16px",
+                      "margin": "24px",
+                      "xxl": "64px",
+                      "sm": "8px",
+                      "xl": "40px",
+                      "gutter": "16px",
+                      "unit": "4px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "display-md": ["Space Grotesk"],
+                      "headline-sm": ["Space Grotesk"],
+                      "body-lg": ["Space Grotesk"],
+                      "technical-sm": ["Inter"],
+                      "display-lg": ["Space Grotesk"],
+                      "label-xs": ["Space Grotesk"],
+                      "body-md": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "display-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "technical-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-xs": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="dot-matrix-bg">
+<!-- Shared TopNavBar -->
+<header class="fixed top-0 w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant z-50">
+<div class="flex justify-between items-center px-lg h-16 w-full max-w-[1440px] mx-auto">
+<div class="font-display-md text-display-md tracking-tighter text-primary uppercase">LLM GATEWAY</div>
+<nav class="hidden md:flex items-center gap-xl">
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Tutorial</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Playground</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Chat</a>
+<a class="font-body-md text-primary border-b-2 border-primary pb-1" href="#">About</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all p-2 rounded-full hover:bg-primary/10" data-icon="settings">settings</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all p-2 rounded-full hover:bg-primary/10" data-icon="account_circle">account_circle</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar - Supplemental Info -->
+<aside class="hidden lg:flex fixed right-0 top-16 h-[calc(100vh-64px)] w-80 bg-surface-container/90 backdrop-blur-xl border-l border-outline-variant flex-col py-md space-y-sm z-40 transition-all duration-300 translate-x-0">
+<div class="px-md mb-xl">
+<h3 class="font-display-md text-display-md text-primary uppercase">MODEL SETTINGS</h3>
+<p class="font-technical-sm text-technical-sm text-on-surface-variant opacity-60">V2.4.0-STABLE</p>
+</div>
+<div class="flex flex-col gap-xs">
+<div class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-technical-sm text-technical-sm">Model Metadata</span>
+</div>
+<div class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined" data-icon="alt_route">alt_route</span>
+<span class="font-technical-sm text-technical-sm">Routing Config</span>
+</div>
+<div class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined" data-icon="shield">shield</span>
+<span class="font-technical-sm text-technical-sm">Safety Filters</span>
+</div>
+<div class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant cursor-pointer group">
+<span class="material-symbols-outlined" data-icon="speed">speed</span>
+<span class="font-technical-sm text-technical-sm">Performance</span>
+</div>
+</div>
+<div class="mt-auto px-md pb-md">
+<div class="p-md bg-primary/5 border border-primary/20 rounded-lg">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-2 rounded-full bg-primary relative">
+<div class="absolute inset-0 rounded-full bg-primary ping-dot"></div>
+</div>
+<span class="text-label-xs font-label-xs text-primary">SYSTEM: ACTIVE</span>
+</div>
+<p class="text-label-xs font-label-xs text-on-surface-variant">Global latency: 42ms</p>
+</div>
+</div>
+</aside>
+<main class="pt-32 pb-xxl px-margin max-w-[1000px] lg:ml-[calc(50%-500px)]">
+<!-- Hero Header -->
+<section class="mb-xxl animate-in fade-in slide-in-from-bottom-8 duration-700">
+<div class="inline-block px-3 py-1 mb-md bg-primary/10 border border-primary/30 rounded-sm">
+<span class="text-label-xs font-label-xs text-primary uppercase tracking-widest">About the project</span>
+</div>
+<h1 class="font-display-lg text-display-lg mb-lg uppercase dotted-text leading-tight max-w-2xl">
+                PROJECT MANIFESTO
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                A high-performance gateway designed to bridge the gap between complex neural architectures and seamless application routing. 
+            </p>
+</section>
+<!-- The Architecture Story -->
+<section class="mb-xxl">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+<h2 class="font-display-md text-display-md uppercase">The Architecture Story</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg items-center">
+<div class="md:col-span-7">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-md">
+                        We built LLM Gateway on the principle of <span class="text-primary">computational transparency</span>. In an era where AI models are often black boxes, our routing layer provides surgical precision and observability. Every token is tracked, every millisecond is accounted for, and every route is optimized for cost-efficiency without compromising intelligence.
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        The core engine is stateless by design, allowing for infinite horizontal scaling while maintaining a unified interface for over 40+ heterogeneous model providers.
+                    </p>
+</div>
+<div class="md:col-span-5 relative">
+<div class="technical-border aspect-square glass-panel flex items-center justify-center p-md overflow-hidden">
+<!-- Abstract Technical SVG Diagram -->
+<svg class="w-full h-full opacity-60" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<rect class="diagram-node" fill="none" height="40" stroke="#a3e635" stroke-width="1" width="60" x="70" y="20"></rect>
+<rect class="diagram-node" fill="none" height="30" stroke="#1e293b" stroke-width="1" width="40" x="20" y="100"></rect>
+<rect class="diagram-node" fill="none" height="30" stroke="#1e293b" stroke-width="1" width="40" x="80" y="100"></rect>
+<rect class="diagram-node" fill="none" height="30" stroke="#1e293b" stroke-width="1" width="40" x="140" y="100"></rect>
+<path d="M100 60 L100 100 M100 80 L40 80 L40 100 M100 80 L160 80 L160 100" fill="none" stroke="#1e293b" stroke-width="1"></path>
+<circle cx="100" cy="160" fill="none" r="15" stroke="#2fd9f4" stroke-dasharray="2 2" stroke-width="1"></circle>
+<path d="M40 130 L100 145 M100 130 L100 145 M160 130 L100 145" fill="none" stroke="#1e293b" stroke-width="0.5"></path>
+</svg>
+<div class="absolute bottom-4 left-4 font-label-xs text-label-xs text-on-surface-variant opacity-40">SCHEMA: V2-ALPHA</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stack & Journey -->
+<section class="mb-xxl">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary" data-icon="layers">layers</span>
+<h2 class="font-display-md text-display-md uppercase">Stack &amp; Journey</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-md">
+<!-- Stack Cards -->
+<div class="technical-border glass-panel p-lg flex flex-col gap-md group">
+<div class="flex justify-between items-start">
+<div class="text-primary font-bold text-xl uppercase tracking-tighter">Go</div>
+<span class="text-label-xs font-label-xs text-on-surface-variant opacity-50">CORE ENGINE</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant/80">Selected for its unparalleled concurrency model and memory efficiency at scale.</p>
+</div>
+<div class="technical-border glass-panel p-lg flex flex-col gap-md group">
+<div class="flex justify-between items-start">
+<div class="text-secondary font-bold text-xl uppercase tracking-tighter">Python</div>
+<span class="text-label-xs font-label-xs text-on-surface-variant opacity-50">AI ORCHESTRATION</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant/80">Managing the heavy lifting of tensor processing and model fine-tuning adapters.</p>
+</div>
+<div class="technical-border glass-panel p-lg flex flex-col gap-md group">
+<div class="flex justify-between items-start">
+<div class="text-on-surface font-bold text-xl uppercase tracking-tighter">Next.js</div>
+<span class="text-label-xs font-label-xs text-on-surface-variant opacity-50">INTERFACE</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant/80">Providing a reactive, server-side rendered dashboard for real-time monitoring.</p>
+</div>
+</div>
+</section>
+<!-- Engineer's Note -->
+<section class="mb-xxl border-l-2 border-primary/20 pl-lg">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary" data-icon="edit_note">edit_note</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-primary">Engineer's Note</h3>
+</div>
+<blockquote class="font-body-lg text-body-lg text-on-surface-variant italic leading-relaxed mb-lg">
+                "The goal wasn't just to build another API proxy. It was to build a cockpit for the next generation of software. One where developers can see exactly how their prompts are behaving, how their latency is stacking up, and where every penny of their compute budget is going. This is hardware-grade software for soft-intelligence."
+            </blockquote>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A professional close-up portrait of a lead software engineer in his late 30s. He is wearing a dark minimalist technical jacket, looking thoughtfully into the camera with a slight, confident smile. The background is a softly blurred modern office with dark tones and neon green accent lights. The lighting is crisp and cinematic, emphasizing technical precision and creative authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhcvfXMqqrUUGOdup4WYRxe1X9AMZ7WU1mr2dXhNUMFsXUTHc4owtwxxiewW8B5fskCaETWxZNO2YeqN6IFLmLBJcLyuQPrGdT1S_9-EcByg9s_Si-b9XA9NE5RMOfvmCZUcIyhVsN-YC4jKZ7ONufa6aus16wY-qwjpLshegfJcqAeSLv4bh43CqCkzQHoL3B5uLGmz_dEwrrRb4XLpe0_4CTfv_9U6YFfzOEdGWE3qg0jw_m-ZX8kQ"/>
+</div>
+<div>
+<div class="font-body-md font-bold text-on-surface">Alex Volkov</div>
+<div class="text-label-xs font-label-xs text-on-surface-variant uppercase">Lead Architect &amp; Founder</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Shared Footer -->
+<footer class="fixed bottom-0 w-full bg-surface-container-lowest border-t border-outline-variant z-50">
+<div class="flex justify-between items-center px-lg py-xs w-full h-8">
+<div class="flex items-center gap-xl">
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-secondary-fixed-dim">© 2024 LLM GATEWAY | SYSTEM: ONLINE</span>
+<div class="hidden md:flex gap-md">
+<span class="font-label-xs text-label-xs text-on-surface-variant">UPTIME: 99.98%</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">LATENCY: 42MS</span>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<a class="group flex items-center gap-1 transition-all" href="#">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-secondary group-hover:drop-shadow-[0_0_5px_rgba(47,217,244,0.6)]" data-icon="code">code</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant group-hover:text-secondary">GITHUB</span>
+</a>
+<a class="group flex items-center gap-1 transition-all" href="#">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-secondary group-hover:drop-shadow-[0_0_5px_rgba(47,217,244,0.6)]" data-icon="alternate_email">alternate_email</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant group-hover:text-secondary">LINKEDIN</span>
+</a>
+</div>
+</div>
+</footer>
+<!-- Atmosphere Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('.technical-border').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>

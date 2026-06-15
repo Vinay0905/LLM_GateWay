@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @font-face {
+            font-family: 'DotMatrix';
+            src: url('https://fonts.cdnfonts.com/s/16218/DOTMATRI.woff') format('woff');
+        }
+        .font-dot-matrix { font-family: 'DotMatrix', monospace; }
+        
+        body {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 16px 16px;
+            color: #e5e2e1;
+        }
+
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border: 0.5px solid #1e293b;
+        }
+
+        .glass-panel:hover {
+            border-color: #a3e635;
+            box-shadow: inset 0 0 10px rgba(163, 230, 53, 0.05);
+            transition: all 0.3s ease-out;
+        }
+
+        .code-editor {
+            font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+            line-height: 1.5;
+        }
+
+        .status-ping {
+            position: relative;
+        }
+        .status-ping::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #a3e635;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateY(-50%) scale(1); opacity: 1; }
+            70% { transform: translateY(-50%) scale(2.5); opacity: 0; }
+            100% { transform: translateY(-50%) scale(1); opacity: 0; }
+        }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .line-number {
+            color: #424936;
+            text-align: right;
+            padding-right: 1rem;
+            user-select: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "secondary-fixed-dim": "#2fd9f4",
+                "secondary-container": "#00cbe6",
+                "error": "#ffb4ab",
+                "primary-fixed": "#b2f746",
+                "on-primary": "#213600",
+                "outline-variant": "#424936",
+                "error-container": "#93000a",
+                "surface-container": "#201f1f",
+                "on-surface-variant": "#c2cab0",
+                "on-secondary-fixed-variant": "#004e5a",
+                "surface-variant": "#353534",
+                "on-tertiary-fixed-variant": "#6900b3",
+                "primary-fixed-dim": "#98da27",
+                "surface": "#131313",
+                "on-background": "#e5e2e1",
+                "on-tertiary-container": "#7f24ce",
+                "secondary": "#5de6ff",
+                "tertiary-fixed-dim": "#ddb7ff",
+                "on-tertiary": "#490080",
+                "on-tertiary-fixed": "#2c0051",
+                "on-secondary": "#00363e",
+                "on-error": "#690005",
+                "on-error-container": "#ffdad6",
+                "on-secondary-container": "#00515d",
+                "surface-tint": "#98da27",
+                "on-primary-container": "#416400",
+                "surface-container-high": "#2a2a2a",
+                "surface-container-low": "#1c1b1b",
+                "inverse-on-surface": "#313030",
+                "surface-dim": "#131313",
+                "primary-container": "#a3e635",
+                "surface-container-highest": "#353534",
+                "tertiary-fixed": "#f0dbff",
+                "surface-container-lowest": "#0e0e0e",
+                "tertiary-container": "#e5c7ff",
+                "on-primary-fixed-variant": "#334f00",
+                "secondary-fixed": "#a2eeff",
+                "inverse-surface": "#e5e2e1",
+                "inverse-primary": "#446900",
+                "primary": "#ccff80",
+                "outline": "#8c947c",
+                "on-secondary-fixed": "#001f25",
+                "on-surface": "#e5e2e1",
+                "surface-bright": "#3a3939",
+                "tertiary": "#f8eaff",
+                "background": "#131313",
+                "on-primary-fixed": "#121f00"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+              },
+              "spacing": {
+                "lg": "24px",
+                "md": "16px",
+                "margin": "24px",
+                "xxl": "64px",
+                "sm": "8px",
+                "xl": "40px",
+                "gutter": "16px",
+                "unit": "4px",
+                "xs": "4px"
+              },
+              "fontFamily": {
+                "display-md": ["Space Grotesk"],
+                "headline-sm": ["Space Grotesk"],
+                "body-lg": ["Space Grotesk"],
+                "technical-sm": ["Inter"],
+                "display-lg": ["Space Grotesk"],
+                "label-xs": ["Space Grotesk"],
+                "body-md": ["Space Grotesk"]
+              },
+              "fontSize": {
+                "display-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "technical-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-xs": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="overflow-hidden h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant z-50 transition-all duration-300 ease-out">
+<div class="flex justify-between items-center px-lg h-16 w-full max-w-[1440px] mx-auto">
+<div class="flex items-center gap-6">
+<span class="font-dot-matrix text-primary text-display-md tracking-tighter uppercase">LIVE GATEWAY</span>
+<nav class="hidden md:flex gap-8">
+<a class="font-display-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-display-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Tutorial</a>
+<a class="font-display-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">Playground</a>
+<a class="font-display-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Chat</a>
+<a class="font-display-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary/10 p-2 rounded transition-colors">settings</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary/10 p-2 rounded transition-colors">account_circle</button>
+</div>
+</div>
+</header>
+<!-- Side Navigation Bar (Right) -->
+<aside class="fixed right-0 top-16 h-[calc(100%-80px)] w-80 bg-surface-container/90 backdrop-blur-xl border-l border-outline-variant hidden lg:flex flex-col py-md space-y-sm z-40 transition-all ease-in-out duration-300">
+<div class="px-md mb-6">
+<h2 class="font-display-md text-display-md text-primary">MODEL SETTINGS</h2>
+<p class="font-technical-sm text-technical-sm text-on-surface-variant opacity-60">V2.4.0-STABLE</p>
+</div>
+<div class="flex flex-col gap-1">
+<button class="flex items-center gap-4 px-md py-3 bg-primary/10 text-primary border-r-2 border-primary transition-colors">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-technical-sm text-technical-sm">Model Metadata</span>
+</button>
+<button class="flex items-center gap-4 px-md py-3 text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">alt_route</span>
+<span class="font-technical-sm text-technical-sm">Routing Config</span>
+</button>
+<button class="flex items-center gap-4 px-md py-3 text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-technical-sm text-technical-sm">Safety Filters</span>
+</button>
+<button class="flex items-center gap-4 px-md py-3 text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">speed</span>
+<span class="font-technical-sm text-technical-sm">Performance</span>
+</button>
+</div>
+<!-- Animated Background Decoration in Sidebar -->
+<div class="mt-auto p-md">
+<div class="glass-panel rounded-lg p-4 h-48 overflow-hidden relative">
+
+<div class="relative z-10 flex flex-col justify-end h-full">
+<span class="font-label-xs text-label-xs text-secondary-fixed-dim">SYSTEM_LOAD</span>
+<div class="w-full h-1 bg-outline-variant mt-2">
+<div class="bg-secondary h-full w-[64%]"></div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 mt-16 mb-8 lg:mr-80 overflow-hidden flex flex-col relative">
+<!-- Floating Badges Container -->
+<div class="absolute top-6 left-6 right-6 flex justify-between pointer-events-none z-30">
+<div class="flex gap-4">
+<div class="glass-panel px-4 py-2 rounded-full flex items-center gap-2 pointer-events-auto">
+<span class="status-ping ml-4"></span>
+<span class="font-label-xs text-label-xs text-primary uppercase">Latency: 22ms</span>
+</div>
+<div class="glass-panel px-4 py-2 rounded-full flex items-center gap-2 pointer-events-auto border-secondary-fixed-dim/30">
+<span class="material-symbols-outlined text-secondary text-sm">alt_route</span>
+<span class="font-label-xs text-label-xs text-secondary uppercase">Route: Gemini-1.5-Pro</span>
+</div>
+</div>
+<div class="glass-panel px-4 py-2 rounded-full flex items-center gap-2 pointer-events-auto">
+<span class="material-symbols-outlined text-primary text-sm">verified_user</span>
+<span class="font-label-xs text-label-xs text-primary uppercase">Safety: Pass</span>
+</div>
+</div>
+<!-- Split Screen Layout -->
+<div class="flex flex-1 overflow-hidden p-6 gap-6 pt-20">
+<!-- Left: JSON Editor -->
+<section class="flex-1 glass-panel rounded-xl flex flex-col overflow-hidden">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<span class="font-technical-sm text-technical-sm uppercase text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">code</span>
+                        routing_policy.json
+                    </span>
+<button class="text-primary hover:bg-primary/10 px-3 py-1 rounded border border-primary/20 transition-all font-technical-sm text-technical-sm">DEPLOY_CONFIG</button>
+</div>
+<div class="flex-1 p-4 overflow-y-auto scrollbar-hide code-editor bg-black/40">
+<div class="flex">
+<div class="line-number font-technical-sm">1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16</div>
+<div class="flex-1 text-on-surface-variant font-technical-sm">
+<span class="text-secondary">{</span><br/>
+                              <span class="text-primary">"gateway_id"</span>: <span class="text-secondary-fixed-dim">"LGT-99-B"</span>,<br/>
+                              <span class="text-primary">"strategy"</span>: <span class="text-secondary-fixed-dim">"cost_efficient_switching"</span>,<br/>
+                              <span class="text-primary">"providers"</span>: <span class="text-secondary">[</span><br/>
+                                <span class="text-secondary">{</span><br/>
+                                  <span class="text-primary">"name"</span>: <span class="text-secondary-fixed-dim">"Google-Gemini"</span>,<br/>
+                                  <span class="text-primary">"model"</span>: <span class="text-secondary-fixed-dim">"gemini-1.5-pro-002"</span>,<br/>
+                                  <span class="text-primary">"threshold"</span>: <span class="text-secondary-fixed-dim">0.85</span><br/>
+                                <span class="text-secondary">}</span>,<br/>
+                                <span class="text-secondary">{</span><br/>
+                                  <span class="text-primary">"name"</span>: <span class="text-secondary-fixed-dim">"Groq"</span>,<br/>
+                                  <span class="text-primary">"model"</span>: <span class="text-secondary-fixed-dim">"llama-3.1-70b-versatile"</span>,<br/>
+                                  <span class="text-primary">"max_tokens"</span>: <span class="text-secondary-fixed-dim">4096</span><br/>
+                                <span class="text-secondary">}</span><br/>
+                              <span class="text-secondary">]</span><br/>
+<span class="text-secondary">}</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Live Inspector -->
+<section class="flex-1 glass-panel rounded-xl flex flex-col overflow-hidden border-secondary-fixed-dim/10">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<span class="font-technical-sm text-technical-sm uppercase text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">terminal</span>
+                        output_stream.log
+                    </span>
+<div class="flex gap-3">
+<div class="w-3 h-3 rounded-full bg-error/40 border border-error"></div>
+<div class="w-3 h-3 rounded-full bg-primary/40 border border-primary"></div>
+<div class="w-3 h-3 rounded-full bg-secondary/40 border border-secondary"></div>
+</div>
+</div>
+<div class="flex-1 p-4 overflow-y-auto scrollbar-hide font-technical-sm bg-black/20 text-on-surface-variant" id="log-stream">
+<div class="mb-1 opacity-60 text-label-xs">[09:44:21] INFO: Initializing LGT-99-B...</div>
+<div class="mb-1 opacity-80 text-label-xs">[09:44:22] INFO: Routing policy loaded: cost_efficient_switching</div>
+<div class="mb-1 text-primary">[09:44:23] SUCCESS: Connection established to Gemini-1.5-Pro</div>
+<div class="mb-1 opacity-60 text-label-xs">[09:44:25] INFO: Listening for incoming requests...</div>
+<div class="mb-1 text-secondary">[09:45:01] REQUEST: POST /v1/chat/completions (tokens: 442)</div>
+<div class="mb-1 text-primary">[09:45:01] ROUTE: Selected Gemini based on quality threshold 0.85</div>
+<div class="mb-1 text-label-xs opacity-40">[09:45:02] DEBUG: ttfb=142ms, duration=882ms</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Status Bar -->
+<footer class="fixed bottom-0 w-full bg-surface-container-lowest border-t border-outline-variant z-50 transition-opacity duration-200">
+<div class="flex justify-between items-center px-lg py-xs w-full h-8">
+<div class="flex items-center gap-6">
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-secondary-fixed-dim flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#a3e635]"></span>
+                    UPTIME: 99.98%
+                </span>
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-secondary-fixed-dim">LATENCY: 42MS</span>
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-secondary-fixed-dim">ROUTING: ACTIVE</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-primary font-bold">CIRCUIT_BREAKER: NOMINAL</span>
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-on-surface-variant">© 2024 LLM GATEWAY | SYSTEM: ONLINE</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction: Log streaming simulation
+        const logStream = document.getElementById('log-stream');
+        const logEntries = [
+            { type: 'INFO', text: 'Health check completed successfully.', color: 'opacity-60' },
+            { type: 'REQUEST', text: 'GET /metrics - Handled by edge node SYD-1', color: 'text-secondary' },
+            { type: 'DEBUG', text: 'Memory optimization routine executed: 12ms', color: 'opacity-40' },
+            { type: 'ROUTE', text: 'Failing over to Groq for sub-100ms response requirement.', color: 'text-primary' },
+            { type: 'SUCCESS', text: 'Token cache hit for repeated query prompt.', color: 'text-primary-container' }
+        ];
+
+        setInterval(() => {
+            const entry = logEntries[Math.floor(Math.random() * logEntries.length)];
+            const div = document.createElement('div');
+            const now = new Date().toLocaleTimeString([], { hour12: false });
+            div.className = `mb-1 ${entry.color} text-label-xs animate-in fade-in slide-in-from-bottom-1 duration-500`;
+            div.innerHTML = `[${now}] ${entry.type}: ${entry.text}`;
+            logStream.appendChild(div);
+            
+            if (logStream.childNodes.length > 20) {
+                logStream.removeChild(logStream.firstChild);
+            }
+            logStream.scrollTop = logStream.scrollHeight;
+        }, 3000);
+
+        // Sidebar interactions
+        const sidebarTabs = document.querySelectorAll('aside button');
+        sidebarTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                sidebarTabs.forEach(t => {
+                    t.classList.remove('bg-primary/10', 'text-primary', 'border-r-2', 'border-primary');
+                    t.classList.add('text-on-surface-variant', 'hover:bg-surface-variant');
+                });
+                tab.classList.add('bg-primary/10', 'text-primary', 'border-r-2', 'border-primary');
+                tab.classList.remove('text-on-surface-variant', 'hover:bg-surface-variant');
+            });
+        });
+    </script>
+</body></html>

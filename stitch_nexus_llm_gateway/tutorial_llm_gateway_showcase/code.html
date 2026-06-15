@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(#1e293b 1px, transparent 1px);
+            background-size: 16px 16px;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border: 0.5px solid #1e293b;
+        }
+        .step-active {
+            border-color: #a3e635;
+            box-shadow: inset 0 0 10px rgba(163, 230, 53, 0.1);
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(163, 230, 53, 0.4);
+        }
+        .dotted-line {
+            background-image: linear-gradient(to bottom, #a3e635 50%, transparent 50%);
+            background-size: 2px 8px;
+            background-repeat: repeat-y;
+        }
+        .code-container {
+            background: #0e0e0e;
+            border-left: 2px solid #a3e635;
+        }
+        .badge-pulse {
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#2fd9f4",
+                      "secondary-container": "#00cbe6",
+                      "error": "#ffb4ab",
+                      "primary-fixed": "#b2f746",
+                      "on-primary": "#213600",
+                      "outline-variant": "#424936",
+                      "error-container": "#93000a",
+                      "surface-container": "#201f1f",
+                      "on-surface-variant": "#c2cab0",
+                      "on-secondary-fixed-variant": "#004e5a",
+                      "surface-variant": "#353534",
+                      "on-tertiary-fixed-variant": "#6900b3",
+                      "primary-fixed-dim": "#98da27",
+                      "surface": "#131313",
+                      "on-background": "#e5e2e1",
+                      "on-tertiary-container": "#7f24ce",
+                      "secondary": "#5de6ff",
+                      "tertiary-fixed-dim": "#ddb7ff",
+                      "on-tertiary": "#490080",
+                      "on-tertiary-fixed": "#2c0051",
+                      "on-secondary": "#00363e",
+                      "on-error": "#690005",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-container": "#00515d",
+                      "surface-tint": "#98da27",
+                      "on-primary-container": "#416400",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-container-low": "#1c1b1b",
+                      "inverse-on-surface": "#313030",
+                      "surface-dim": "#131313",
+                      "primary-container": "#a3e635",
+                      "surface-container-highest": "#353534",
+                      "tertiary-fixed": "#f0dbff",
+                      "surface-container-lowest": "#0e0e0e",
+                      "tertiary-container": "#e5c7ff",
+                      "on-primary-fixed-variant": "#334f00",
+                      "secondary-fixed": "#a2eeff",
+                      "inverse-surface": "#e5e2e1",
+                      "inverse-primary": "#446900",
+                      "primary": "#ccff80",
+                      "outline": "#8c947c",
+                      "on-secondary-fixed": "#001f25",
+                      "on-surface": "#e5e2e1",
+                      "surface-bright": "#3a3939",
+                      "tertiary": "#f8eaff",
+                      "background": "#131313",
+                      "on-primary-fixed": "#121f00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "md": "16px",
+                      "margin": "24px",
+                      "xxl": "64px",
+                      "sm": "8px",
+                      "xl": "40px",
+                      "gutter": "16px",
+                      "unit": "4px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "display-md": ["Space Grotesk"],
+                      "headline-sm": ["Space Grotesk"],
+                      "body-lg": ["Space Grotesk"],
+                      "technical-sm": ["Inter"],
+                      "display-lg": ["Space Grotesk"],
+                      "label-xs": ["Space Grotesk"],
+                      "body-md": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "display-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "technical-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-xs": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+      </script>
+</head>
+<body class="min-h-screen pb-20">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant transition-all duration-300 ease-out flex justify-between items-center px-lg h-16 w-full max-w-[1440px] left-1/2 -translate-x-1/2">
+<div class="font-display-md text-display-md tracking-tighter text-primary uppercase">LLM GATEWAY</div>
+<div class="hidden md:flex items-center space-x-lg h-full">
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-body-md text-primary border-b-2 border-primary pb-1" href="#">Tutorial</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Playground</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Chat</a>
+<a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center space-x-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary/10 p-sm rounded-full transition-all">settings</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-primary/10 p-sm rounded-full transition-all">account_circle</button>
+</div>
+</nav>
+<!-- SideNavBar (System Status) -->
+<aside class="fixed right-0 top-16 h-full w-80 bg-surface-container/90 backdrop-blur-xl border-l border-outline-variant flex flex-col py-md space-y-sm z-40 hidden xl:flex">
+<div class="px-md mb-lg">
+<div class="font-display-md text-display-md text-primary tracking-tight">MODEL SETTINGS</div>
+<div class="font-technical-sm text-technical-sm text-on-surface-variant opacity-70">V2.4.0-STABLE</div>
+</div>
+<div class="flex flex-col space-y-xs px-sm">
+<div class="flex items-center space-x-md p-md bg-primary/10 text-primary border-r-2 border-primary cursor-pointer transition-all">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-technical-sm text-technical-sm">Model Metadata</span>
+</div>
+<div class="flex items-center space-x-md p-md text-on-surface-variant hover:bg-surface-variant cursor-pointer transition-all">
+<span class="material-symbols-outlined">alt_route</span>
+<span class="font-technical-sm text-technical-sm">Routing Config</span>
+</div>
+<div class="flex items-center space-x-md p-md text-on-surface-variant hover:bg-surface-variant cursor-pointer transition-all">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-technical-sm text-technical-sm">Safety Filters</span>
+</div>
+<div class="flex items-center space-x-md p-md text-on-surface-variant hover:bg-surface-variant cursor-pointer transition-all">
+<span class="material-symbols-outlined">speed</span>
+<span class="font-technical-sm text-technical-sm">Performance</span>
+</div>
+</div>
+<div class="mt-auto px-md pb-xl">
+<div class="glass-panel p-md rounded-lg border border-outline-variant/30">
+<div class="flex items-center justify-between mb-sm">
+<span class="font-label-xs text-label-xs uppercase">Node Health</span>
+<span class="w-2 h-2 rounded-full bg-primary-container badge-pulse"></span>
+</div>
+<div class="h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 94%"></div>
+</div>
+</div>
+</div>
+</aside>
+<main class="pt-32 px-lg max-w-[1440px] mx-auto xl:pr-96">
+<!-- Header -->
+<header class="mb-xxl flex flex-col space-y-sm">
+<div class="inline-flex items-center space-x-sm bg-primary/5 border border-primary/20 px-sm py-xs w-fit">
+<span class="material-symbols-outlined text-[14px] text-primary">terminal</span>
+<span class="font-label-xs text-label-xs text-primary uppercase tracking-widest">Documentation: Core v2.4</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tighter uppercase leading-none">
+                SYSTEM <span class="text-primary glow-text">INTEGRATION</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                A technical guide to implementing the LLM Gateway within your local or cloud infrastructure. Follow the hardware-validated sequence below.
+            </p>
+</header>
+<div class="flex gap-xl relative">
+<!-- Timeline Sidebar -->
+<div class="hidden md:flex flex-col items-center w-12 sticky top-40 h-fit pt-2">
+<div class="relative flex flex-col items-center gap-12">
+<div class="absolute top-4 bottom-4 w-[2px] dotted-line"></div>
+<div class="relative z-10 w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-display-md text-headline-sm border-4 border-background">1</div>
+<div class="relative z-10 w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-display-md text-headline-sm border-4 border-background outline outline-1 outline-outline-variant">2</div>
+<div class="relative z-10 w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-display-md text-headline-sm border-4 border-background outline outline-1 outline-outline-variant">3</div>
+<div class="relative z-10 w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-display-md text-headline-sm border-4 border-background outline outline-1 outline-outline-variant">4</div>
+</div>
+</div>
+<!-- Content Cards -->
+<div class="flex-1 flex flex-col space-y-lg">
+<!-- Step 1: Setup -->
+<section class="glass-panel p-lg rounded-lg border-primary/40 border-l-4" id="setup">
+<div class="flex justify-between items-start mb-md">
+<div>
+<span class="font-label-xs text-label-xs text-primary uppercase mb-xs block">Module 01</span>
+<h2 class="font-display-md text-display-md text-on-surface uppercase">Environment Setup</h2>
+</div>
+<div class="flex items-center space-x-sm bg-primary-container/20 px-md py-sm rounded-lg border border-primary/30">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-xs text-label-xs text-primary uppercase">Completed</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg max-w-2xl">
+                        Install the Gateway sidecar via Go or Python. The sidecar handles model orchestration, stream buffering, and secure key rotation without adding latency to your main thread.
+                    </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-lg">
+<div class="code-container p-md rounded">
+<div class="flex justify-between mb-sm">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase">GO-SIDECAR</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant cursor-pointer hover:text-primary">content_copy</span>
+</div>
+<code class="font-technical-sm text-technical-sm text-primary-fixed block leading-relaxed">
+                                go get github.com/gateway/core<br/>
+                                gateway init --mode sidecar<br/>
+                                gateway serve --port 8080
+                            </code>
+</div>
+<div class="code-container p-md rounded border-l-secondary">
+<div class="flex justify-between mb-sm">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase">PY-WRAPPER</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant cursor-pointer hover:text-primary">content_copy</span>
+</div>
+<code class="font-technical-sm text-technical-sm text-secondary-fixed-dim block leading-relaxed">
+                                pip install gateway-sdk<br/>
+                                import gateway<br/>
+                                client = gateway.Connect()
+                            </code>
+</div>
+</div>
+<div class="flex flex-wrap gap-sm">
+<div class="bg-surface-container-high border border-outline-variant px-md py-xs rounded flex items-center space-x-sm">
+<span class="material-symbols-outlined text-[18px]">developer_board</span>
+<span class="font-label-xs text-label-xs uppercase">Hardware Check: PASS</span>
+</div>
+<div class="bg-surface-container-high border border-outline-variant px-md py-xs rounded flex items-center space-x-sm">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+<span class="font-label-xs text-label-xs uppercase">Lat: 2ms</span>
+</div>
+</div>
+</section>
+<!-- Step 2: Routing -->
+<section class="glass-panel p-lg rounded-lg hover:border-primary/40 transition-all duration-300" id="routing">
+<div class="flex justify-between items-start mb-md">
+<div>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase mb-xs block">Module 02</span>
+<h2 class="font-display-md text-display-md text-on-surface uppercase">Routing Configuration</h2>
+</div>
+<div class="bg-surface-container-high px-md py-sm rounded-lg border border-outline-variant">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase">Current Task</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg max-w-2xl">
+                        Define model fallbacks and load balancing strategies. If a primary provider (e.g., GPT-4) hits a rate limit or latency threshold, the gateway automatically redirects to your defined secondary model.
+                    </p>
+<div class="code-container p-md rounded mb-lg">
+<div class="flex justify-between mb-sm">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase">ROUTING.JSON</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant cursor-pointer hover:text-primary">data_object</span>
+</div>
+<pre class="font-technical-sm text-technical-sm text-primary block leading-relaxed whitespace-pre-wrap">{
+  "strategy": "lowest_latency",
+  "targets": [
+    { "id": "model_a", "weight": 80, "fallback": "model_b" },
+    { "id": "model_b", "weight": 20 }
+  ],
+  "retries": 3,
+  "timeout": "450ms"
+}</pre>
+</div>
+<button class="border border-primary text-primary hover:bg-primary/10 px-lg py-md rounded font-label-xs text-label-xs uppercase tracking-widest transition-all">
+                        Validate Configuration
+                    </button>
+</section>
+<!-- Step 3: Safety -->
+<section class="glass-panel p-lg rounded-lg hover:border-primary/40 transition-all duration-300" id="safety">
+<div class="flex justify-between items-start mb-md">
+<div>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase mb-xs block">Module 03</span>
+<h2 class="font-display-md text-display-md text-on-surface uppercase">Safety Filters</h2>
+</div>
+<span class="material-symbols-outlined text-outline-variant">lock</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg max-w-2xl">
+                        Layer 2 security protocols. Sanitize inputs and outputs before they leave your network. Prevents prompt injections and PII leakage.
+                    </p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="border border-outline-variant p-md rounded group hover:border-secondary transition-colors">
+<span class="material-symbols-outlined text-secondary mb-sm">shield</span>
+<h4 class="font-headline-sm text-headline-sm mb-xs">PII Scrub</h4>
+<p class="font-technical-sm text-technical-sm text-on-surface-variant opacity-70">Detects and masks emails, phones, and names.</p>
+</div>
+<div class="border border-outline-variant p-md rounded group hover:border-secondary transition-colors">
+<span class="material-symbols-outlined text-secondary mb-sm">policy</span>
+<h4 class="font-headline-sm text-headline-sm mb-xs">Infection Check</h4>
+<p class="font-technical-sm text-technical-sm text-on-surface-variant opacity-70">Heuristic analysis of complex prompt strings.</p>
+</div>
+<div class="border border-outline-variant p-md rounded group hover:border-secondary transition-colors">
+<span class="material-symbols-outlined text-secondary mb-sm">health_and_safety</span>
+<h4 class="font-headline-sm text-headline-sm mb-xs">Toxicity</h4>
+<p class="font-technical-sm text-technical-sm text-on-surface-variant opacity-70">Real-time sentiment and harmful content filter.</p>
+</div>
+</div>
+</section>
+<!-- Challenge Card -->
+<section class="relative overflow-hidden glass-panel p-xl rounded-lg border-secondary/20 bg-secondary/5 mt-xl">
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-secondary/10 blur-3xl rounded-full"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-[48px] text-secondary mb-md">military_tech</span>
+<h3 class="font-display-md text-display-md text-on-surface uppercase mb-sm">Architect Certification</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg max-w-md">
+                            Complete all integration steps and pass the latency stress test to unlock your Gateway Architect Badge.
+                        </p>
+<div class="flex space-x-md">
+<div class="w-12 h-12 rounded-full border border-primary/40 flex items-center justify-center bg-primary/10">
+<span class="material-symbols-outlined text-primary">check</span>
+</div>
+<div class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center grayscale opacity-50">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center grayscale opacity-50">
+<span class="material-symbols-outlined">security</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 w-full bg-surface-container-lowest border-t border-outline-variant transition-opacity duration-200 flex justify-between items-center px-lg py-xs w-full h-8 z-50">
+<div class="font-label-xs text-label-xs uppercase tracking-widest text-secondary-fixed-dim">© 2024 LLM GATEWAY | SYSTEM: ONLINE</div>
+<div class="flex space-x-lg">
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-on-surface-variant">UPTIME: 99.98%</span>
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-on-surface-variant">LATENCY: 42MS</span>
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-primary">ROUTING: ACTIVE</span>
+</div>
+</footer>
+<script>
+        // Simple scroll spy for timeline (conceptual)
+        window.addEventListener('scroll', () => {
+            const sections = ['setup', 'routing', 'safety'];
+            const dots = document.querySelectorAll('.md\\:flex .relative.z-10');
+            
+            let current = '';
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 200) current = section;
+            });
+
+            dots.forEach((dot, idx) => {
+                if (sections[idx] === current) {
+                    dot.classList.add('bg-primary', 'text-on-primary');
+                    dot.classList.remove('bg-surface-container', 'text-on-surface-variant');
+                } else if (idx < sections.indexOf(current)) {
+                    dot.classList.add('bg-primary', 'text-on-primary');
+                } else {
+                    dot.classList.remove('bg-primary', 'text-on-primary');
+                    dot.classList.add('bg-surface-container', 'text-on-surface-variant');
+                }
+            });
+        });
+    </script>
+</body></html>
