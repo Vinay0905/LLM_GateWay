@@ -1,3 +1,4 @@
+import os
 import logging
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -5,10 +6,34 @@ from pydantic import BaseModel
 from detectors.injection import analyze_injection
 from detectors.jailbreak import analyze_jailbreak
 from detectors.pii import analyze_pii
-
+from dotenv import load_dotenv
+load_dotenv()
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("safety_sidecar")
+
+# def load_dotenv():
+#     # Attempt to load .env from common directories
+#     for path in [".env", "../.env", "../../.env", "../../../.env"]:
+#         if os.path.exists(path):
+#             try:
+#                 with open(path, "r") as f:
+#                     for line in f:
+#                         line = line.strip()
+#                         if not line or line.startswith("#"):
+#                             continue
+#                         if "=" in line:
+#                             key, val = line.split("=", 1)
+#                             key = key.strip()
+#                             val = val.strip().strip("'\"")
+#                             if key and key not in os.environ:
+#                                 os.environ[key] = val
+#                 logger.info(f"Loaded environment variables from {os.path.abspath(path)}")
+#                 break
+#             except Exception as e:
+#                 logger.error(f"Error reading .env at {path}: {e}")
+
+load_dotenv()
 
 app = FastAPI(title="LLM Gateway Safety Sidecar")
 
@@ -48,12 +73,13 @@ async def analyze(req: AnalyzerRequest) -> AnalyzeResponse:
     # Layer 3: LLM-as-a-Judge Jailbreak Classifier (async API request)
     is_jailbreak, jailbreak_score = await analyze_jailbreak(req.prompt)
 
-    if is_jailbreak:
+    # Let the score drive the verdict if the model flags a high threat (> 0.5)
+    if is_jailbreak or jailbreak_score >= 0.5:
         logger.info(f"Prompt blocked by Layer 3: LLM Safety Judge (Score: {jailbreak_score})")
         return AnalyzeResponse(
             verdict="BLOCK",
             threat_type="jailbreak",
-            score=jailbreak_score,
+            score=max(0.5, jailbreak_score),
             masked_prompt=masked_prompt,
             pii_types_detected=detected_pii
         )

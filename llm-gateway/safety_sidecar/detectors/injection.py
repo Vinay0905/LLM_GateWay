@@ -30,7 +30,7 @@ def check_and_decode_payloads(text:str)->list[str]:
 
     # 1. Check for Base64 pattern: letters, numbers, +, /, and padding (=)
     # Match strings of length 12+ that look like base64 to avoid false positive matches on short words
-    base64_candidates = re.findall(r"\b[A-Za-z0-9+/]{12,}={0,2}\b", text)
+    base64_candidates = re.findall(r"\b[A-Za-z0-9+/]{12,}={0,2}(?=[^A-Za-z0-9+/]|$)", text)
     for candidate in base64_candidates:
         try:
             decoded_bytes = base64.b64decode(candidate, validate=True)
